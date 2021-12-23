@@ -21,7 +21,7 @@ namespace ConsumerTest
             {
                 SpecificationVersion = "2.0.0",
                 PactDir = @"..\..\..\..\pacts\",
-                LogDir = @".\pact_logs"
+                LogDir = @"..\..\..\..\pact_logs"
             };
 
             PactBuilder = new PactBuilder(pactConfig);
@@ -36,7 +36,7 @@ namespace ConsumerTest
         }
 
         #region IDisposable Support
-        private bool _disposedValue = false; // To detect redundant calls
+        private bool _disposedValue; // To detect redundant calls
 
         protected virtual void Dispose(bool disposing)
         {

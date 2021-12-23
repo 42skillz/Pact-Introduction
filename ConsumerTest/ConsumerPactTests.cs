@@ -23,12 +23,14 @@ namespace ConsumerTest
         [Fact]
         public void Should_retrieve_employee_with_status_ok()
         {
+            var employeeId = 1;
+
             _mockProviderService.Given("There is data")
                                 .UponReceiving("A valid GET employee")
                                 .With(new ProviderServiceRequest
                                 {
                                     Method = HttpVerb.Get,
-                                    Path = "/employees/1",
+                                    Path = $"/api/employees/{employeeId}",
                                 })
                                 .WillRespondWith(new ProviderServiceResponse
                                 {
@@ -43,9 +45,9 @@ namespace ConsumerTest
                                 });
 
             var employee = new EmployeeAdapter(_mockProviderServiceBaseUri)
-                .LookForEmployee(1).GetAwaiter().GetResult();
+                .LookForEmployee(employeeId).GetAwaiter().GetResult();
 
-            Check.That(employee.Id).IsEqualTo(1);
+            Check.That(employee.Id).IsEqualTo(employeeId);
             Check.That(employee.Name).IsEqualTo("Stacy");
             Check.That(employee.City).IsEqualTo("NY");
             Check.That(employee.Summary).IsEqualTo("Captain Stacy");

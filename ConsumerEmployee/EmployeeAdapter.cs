@@ -19,7 +19,7 @@ namespace ConsumerEmployee
 
             client.BaseAddress = new Uri(_uriEmployeeService);
 
-            var response = await client.GetAsync($"/employees/{id}");
+            var response = await client.GetAsync($"api/employees/{id}");
 
             return JsonConvert.DeserializeObject<Employee>(await response.Content.ReadAsStringAsync());
         }

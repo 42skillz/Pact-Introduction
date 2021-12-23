@@ -11,7 +11,7 @@
       "providerState": "There is data",
       "request": {
         "method": "get",
-        "path": "/employees/1"
+        "path": "/api/employees/1"
       },
       "response": {
         "status": 200,

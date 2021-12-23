@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeesApi.Controllers
 {
-    [Route("[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class EmployeesController : ControllerBase
     {
         private readonly List<Employee> _employees = new List<Employee>
