@@ -20,7 +20,7 @@ namespace ConsumerTest
             var pactConfig = new PactConfig
             {
                 SpecificationVersion = "2.0.0",
-                PactDir = @"..\..\..\..\..\pacts\",
+                PactDir = @"..\..\..\..\pacts\",
                 LogDir = @".\pact_logs"
             };
 

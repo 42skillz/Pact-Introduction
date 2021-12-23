@@ -28,7 +28,7 @@ namespace ProviderTest.Middleware
 
         private void RemoveAllData()
         {
-            var path = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\..\data");
+            var path = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\data");
             var deletePath = Path.Combine(path, "someData.txt");
 
             if (File.Exists(deletePath))
@@ -39,7 +39,7 @@ namespace ProviderTest.Middleware
 
         private void AddData()
         {
-            var path = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\..\data");
+            var path = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\data");
             var writePath = Path.Combine(path, "someData.txt");
 
             if (!File.Exists(writePath))
