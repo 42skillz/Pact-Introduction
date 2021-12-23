@@ -8,7 +8,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsumerEmployee", "Consume
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsumerTest", "ConsumerTest\ConsumerTest.csproj", "{B3D42BFF-7090-475C-BAE5-90F94D8A7DEE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProviderTest", "ProviderTests\ProviderTest.csproj", "{D5D9C317-77C1-44FA-A915-315C7CCD5A39}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProviderTest", "ProviderTest\ProviderTest.csproj", "{D5D9C317-77C1-44FA-A915-315C7CCD5A39}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
