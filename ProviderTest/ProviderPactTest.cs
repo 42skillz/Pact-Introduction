@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using PactNet;
-using ProviderTest.Middleware;
-using ProviderTest.XUnitHelpers;
+using ProviderPact.Middleware;
+using ProviderPact.XUnitHelpers;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace ProviderTest
+namespace ProviderPact
 {
     public sealed class ProviderPactTest : IDisposable
     {

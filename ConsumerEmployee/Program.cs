@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 
-namespace ConsumerEmployee
+namespace Consumer
 {
     internal static class Program
     {
@@ -16,12 +17,13 @@ namespace ConsumerEmployee
                 baseUri = args[1];
             }
 
-
             var employeeRepository = new EmployeeAdapter(baseUri);
             
-            var employee = await employeeRepository.LookForEmployee(employeeId);
+            var employee = await employeeRepository.LookForEmployeeById(employeeId);
+            var employees = await employeeRepository.GetAllEmployees();
             
-            Console.WriteLine(employee.Summary);
+            Console.WriteLine($"Retrieve employee: {employee.Id}");
+            Console.WriteLine($"Retrieve all employees: {employees.Count()}");
         }
     }
 }

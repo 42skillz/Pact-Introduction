@@ -1,11 +1,11 @@
 using System.Collections.Generic;
-using ConsumerEmployee;
+using Consumer;
 using NFluent;
 using PactNet.Mocks.MockHttpService;
 using PactNet.Mocks.MockHttpService.Models;
 using Xunit;
 
-namespace ConsumerTest
+namespace ConsumerPact
 {
     public class ConsumerPactTests : IClassFixture<ConsumerPactClassFixture>
     {
@@ -15,7 +15,7 @@ namespace ConsumerTest
         public ConsumerPactTests(ConsumerPactClassFixture fixture)
         {
             _mockProviderService = fixture.MockProviderService;
-            _mockProviderService.ClearInteractions(); //NOTE: Clears any previously registered interactions before the test is run
+            _mockProviderService.ClearInteractions();
             _mockProviderServiceBaseUri = fixture.MockProviderServiceBaseUri;
         }
 
@@ -45,9 +45,9 @@ namespace ConsumerTest
                                 });
 
             var employee = new EmployeeAdapter(_mockProviderServiceBaseUri)
-                .LookForEmployee(employeeId).GetAwaiter().GetResult();
+                .LookForEmployeeById(employeeId).GetAwaiter().GetResult();
 
-            Check.That(employee.Id).IsEqualTo(employeeId);
+            Check.That(employee.Id).IsEqualTo(employee.Id);
             Check.That(employee.Name).IsEqualTo("Parker");
             Check.That(employee.City).IsEqualTo("NY");
             Check.That(employee.Summary).IsEqualTo("Peter Parker is the secret identity of the character Spider-Man.");

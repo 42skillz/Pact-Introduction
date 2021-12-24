@@ -4,7 +4,7 @@ using Newtonsoft.Json.Serialization;
 using PactNet;
 using PactNet.Mocks.MockHttpService;
 
-namespace ConsumerTest
+namespace ConsumerPact
 {
     public class ConsumerPactClassFixture : IDisposable
     {

@@ -1,4 +1,4 @@
-namespace ProviderApi
+namespace Provider.Employees
 {
     public class Employee
     {
