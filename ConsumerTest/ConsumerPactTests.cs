@@ -41,16 +41,16 @@ namespace ConsumerTest
                                         ["Content-Type"] = "application/json; charset=utf-8"
                                     },
 
-                                    Body = new Employee { Id = 1, Name = "Stacy", City = "NY", Summary = "Captain Stacy"}
+                                    Body = new Employee { Id = 1, Name = "Parker", City = "NY", Summary = "Peter Parker is the secret identity of the character Spider-Man." }
                                 });
 
             var employee = new EmployeeAdapter(_mockProviderServiceBaseUri)
                 .LookForEmployee(employeeId).GetAwaiter().GetResult();
 
             Check.That(employee.Id).IsEqualTo(employeeId);
-            Check.That(employee.Name).IsEqualTo("Stacy");
+            Check.That(employee.Name).IsEqualTo("Parker");
             Check.That(employee.City).IsEqualTo("NY");
-            Check.That(employee.Summary).IsEqualTo("Captain Stacy");
+            Check.That(employee.Summary).IsEqualTo("Peter Parker is the secret identity of the character Spider-Man.");
 
             _mockProviderService.VerifyInteractions();
         }

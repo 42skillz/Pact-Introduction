@@ -1,10 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
-using EmployeeApi;
-using Microsoft.AspNetCore.Mvc;
 
-namespace EmployeesApi.Controllers
+namespace ProviderApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -22,16 +20,13 @@ namespace EmployeesApi.Controllers
         [HttpGet]
         public IEnumerable<Employee> Get()
         {
-            Console.WriteLine($"Count:{_employees.Count}");
             return _employees;
         }
 
         [HttpGet("{id:int}")]
         public Employee Get(int id)
         {
-            var employee = _employees.FirstOrDefault(e => e.Id == id);
-            Console.WriteLine($"Id:{employee?.Id} Name:{employee?.Name}");
-            return employee;
+            return _employees.FirstOrDefault(e => e.Id == id);
         }
     }
 }

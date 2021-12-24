@@ -1,4 +1,4 @@
-namespace EmployeeApi
+namespace ProviderApi
 {
     public class Employee
     {
