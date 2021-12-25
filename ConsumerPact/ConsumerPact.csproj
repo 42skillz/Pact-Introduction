@@ -22,7 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ConsumerEmployee\Consumer.csproj" />
+    <ProjectReference Include="..\Consumer\Consumer.csproj" />
+    <ProjectReference Include="..\Provider\Provider.csproj" />
   </ItemGroup>
 
 </Project>
