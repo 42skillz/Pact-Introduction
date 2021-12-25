@@ -7,12 +7,12 @@ using Xunit;
 
 namespace ConsumerPact
 {
-    public class ConsumerPactTests : IClassFixture<ConsumerPactClassFixture>
+    public class ConsumerPactShould : IClassFixture<ConsumerPactClassFixture>
     {
         private readonly IMockProviderService _mockProviderService;
         private readonly string _mockProviderServiceBaseUri;
 
-        public ConsumerPactTests(ConsumerPactClassFixture fixture)
+        public ConsumerPactShould(ConsumerPactClassFixture fixture)
         {
             _mockProviderService = fixture.MockProviderService;
             _mockProviderService.ClearInteractions();
@@ -21,7 +21,7 @@ namespace ConsumerPact
 
 
         [Fact]
-        public void Should_retrieve_employee_with_status_ok()
+        public void Should_validate_one_employee()
         {
             var employeeId = 1;
 

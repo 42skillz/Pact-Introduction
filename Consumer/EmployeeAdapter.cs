@@ -19,10 +19,17 @@ namespace Consumer
             using var client = new HttpClient();
 
             client.BaseAddress = new Uri(_uriEmployeeService);
+            try
+            {
+                var response = await client.GetAsync($"api/employees/{id}");
 
-            var response = await client.GetAsync($"api/employees/{id}");
-
-            return JsonConvert.DeserializeObject<Employee>(await response.Content.ReadAsStringAsync());
+                return JsonConvert.DeserializeObject<Employee>(await response.Content.ReadAsStringAsync());
+            }
+            catch (Exception e)
+            {
+                return new EmployeeFailure(e);
+            }
+            
         }
 
         public async Task<IEnumerable<Employee>> GetAllEmployees()

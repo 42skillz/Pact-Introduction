@@ -19,11 +19,13 @@ namespace Consumer
 
             var employeeRepository = new EmployeeAdapter(baseUri);
             
+            // Retrieve one employee
             var employee = await employeeRepository.LookForEmployeeById(employeeId);
+            Console.WriteLine($"Retrieve employee: ID: {employee.Id} Name: {employee.Name} City: {employee.City}.");
+
+            // Retrieve all employees
             var employees = await employeeRepository.GetAllEmployees();
-            
-            Console.WriteLine($"Retrieve employee: {employee.Id}");
-            Console.WriteLine($"Retrieve all employees: {employees.Count()}");
+            Console.WriteLine($"Retrieve all employees: {string.Join(", ", employees.Select( e => e.Name))}.");
         }
     }
 }

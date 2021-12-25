@@ -10,14 +10,14 @@ using Xunit.Abstractions;
 
 namespace ProviderPact
 {
-    public sealed class ProviderPactTest : IDisposable
+    public sealed class ProviderPactShould : IDisposable
     {
         private readonly string _providerUri;
         private readonly string _pactServiceUri;
         private readonly IWebHost _webHost;
         private readonly ITestOutputHelper _outputHelper;
 
-        public ProviderPactTest(ITestOutputHelper output)
+        public ProviderPactShould(ITestOutputHelper output)
         {
             _outputHelper = output;
             _providerUri = "http://localhost:5000";
@@ -32,7 +32,7 @@ namespace ProviderPact
         }
 
         [Fact]
-        public void EnsureProviderApiHonorsPactWithConsumer()
+        public void Ensure_Honors_pact_contract_with_consumer()
         {
             // Arrange
             var config = new PactVerifierConfig

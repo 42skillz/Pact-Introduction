@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ProviderTest\ProviderPact.csproj" />
+    <ProjectReference Include="..\ProviderPact\ProviderPact.csproj" />
   </ItemGroup>
 
 
