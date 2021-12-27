@@ -8,10 +8,10 @@ namespace ConsumerPact
 {
     public class ConsumerPactClassFixture : IDisposable
     {
-        public IPactBuilder PactBuilder { get; }
+        private IPactBuilder PactBuilder { get; }
         public IMockProviderService MockProviderService { get; }
 
-        public int MockServerPort => 9222;
+        private int MockServerPort => 9222;
         public string MockProviderServiceBaseUri => $"http://localhost:{MockServerPort}";
 
         public ConsumerPactClassFixture()

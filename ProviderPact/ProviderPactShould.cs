@@ -32,7 +32,7 @@ namespace ProviderPact
         }
 
         [Fact]
-        public void Ensure_Honors_pact_contract_with_consumer()
+        public void Ensure_honors_pact_contract_with_consumer()
         {
             // Arrange
             var config = new PactVerifierConfig
@@ -50,7 +50,7 @@ namespace ProviderPact
                 .ServiceProvider("Provider", _providerUri)
                 .HonoursPactWith("Consumer")
                 .PactUri(@"..\..\..\..\pacts\consumer-provider.json")
-                .Verify("A valid GET employee", "There is data");
+                .Verify();
         }
 
         #region IDisposable Support

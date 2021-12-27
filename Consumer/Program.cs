@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Consumer
 {
@@ -20,11 +22,13 @@ namespace Consumer
             var employeeRepository = new EmployeeAdapter(baseUri);
             
             // Retrieve one employee
-            var employee = await employeeRepository.LookForEmployeeById(employeeId);
+            var response = await employeeRepository.GetEmployeeById(employeeId);
+            Employee employee = JsonConvert.DeserializeObject<Employee>(await response.Content.ReadAsStringAsync());
             Console.WriteLine($"Retrieve employee: ID: {employee.Id} Name: {employee.Name} City: {employee.City}.");
 
             // Retrieve all employees
-            var employees = await employeeRepository.GetAllEmployees();
+            response = await employeeRepository.GetEmployees();
+            IEnumerable<Employee> employees = JsonConvert.DeserializeObject<List<Employee>>(await response.Content.ReadAsStringAsync());
             Console.WriteLine($"Retrieve all employees: {string.Join(", ", employees.Select( e => e.Name))}.");
         }
     }

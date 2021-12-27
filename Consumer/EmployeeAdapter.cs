@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace Consumer
 {
@@ -14,33 +12,38 @@ namespace Consumer
         {
             _uriEmployeeService = uriEmployeeService;
         }
-        public async Task<Employee> LookForEmployeeById(int id)
+
+        public async Task<HttpResponseMessage> GetEmployeeById(int id)
         {
             using var client = new HttpClient();
 
             client.BaseAddress = new Uri(_uriEmployeeService);
             try
             {
-                var response = await client.GetAsync($"api/employees/{id}");
-
-                return JsonConvert.DeserializeObject<Employee>(await response.Content.ReadAsStringAsync());
+                return await client.GetAsync($"api/employees/{id}");
             }
             catch (Exception e)
             {
-                return new EmployeeFailure(e);
+                throw new Exception("There was a problem connecting to Provider API.", e);
             }
             
         }
 
-        public async Task<IEnumerable<Employee>> GetAllEmployees()
+        public async Task<HttpResponseMessage> GetEmployees()
         {
             using var client = new HttpClient();
 
             client.BaseAddress = new Uri(_uriEmployeeService);
 
-            var response = await client.GetAsync($"api/employees");
-
-            return JsonConvert.DeserializeObject<List<Employee>>(await response.Content.ReadAsStringAsync());
+            try
+            {
+                return await client.GetAsync($"api/employees");
+            }
+            catch (Exception e)
+            {
+                throw new Exception("There was a problem connecting to Provider API.", e);
+            }
+            
         }
     }
 }

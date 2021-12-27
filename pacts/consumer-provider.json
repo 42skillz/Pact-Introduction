@@ -25,6 +25,82 @@
           "summary": "Peter Parker is the secret identity of the character Spider-Man."
         }
       }
+    },
+    {
+      "description": "Retrieve all employees",
+      "providerState": "There is data",
+      "request": {
+        "method": "get",
+        "path": "/api/employees"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "body": [
+          {
+            "id": 1,
+            "name": "Parker",
+            "city": "NY",
+            "summary": "Peter Parker is the secret identity of the character Spider-Man."
+          },
+          {
+            "id": 2,
+            "name": "Stark",
+            "city": "NY",
+            "summary": "A wealthy American business magnate, playboy, philanthropist, inventor and ingenious scientist."
+          },
+          {
+            "id": 3,
+            "name": "Clark",
+            "city": "NY",
+            "summary": "He was found and adopted by farmers Jonathan and Martha Kent, who named him Clark Kent."
+          },
+          {
+            "id": 4,
+            "name": "Grimm",
+            "city": "NY",
+            "summary": "Benjamin Jacob Grimm, also known as The Thing, is a fictional superhero appearing in American comic books published by Marvel Comics."
+          },
+          {
+            "id": 5,
+            "name": "Wayne",
+            "city": "Gotham City",
+            "summary": "Bruce Wayne, a wealthy American playboy, philanthropist, and industrialist who resides in Gotham City."
+          },
+          {
+            "id": 6,
+            "name": "Murdock",
+            "city": "NY",
+            "summary": "Daredevil (Matt Murdock) is a fictional superhero appearing in American comic books published by Marvel Comics. Daredevil was created by writer-editor Stan Lee and artist Bill Everett, with an unspecified amount of input from Jack Kirby."
+          },
+          {
+            "id": 7,
+            "name": "Rogers",
+            "city": "The world",
+            "summary": "The character wears a costume bearing an American flag motif, and he utilizes a nearly-indestructible shield that he throws as a projectile. Captain America is the alter ego of Steve Rogers, a frail young artist enhanced to the peak of human perfection by an experimental \"super-soldier serum\" after joining the military to aid the United States government's efforts in World War II. Near the end of the war, he was trapped in ice and survived in suspended animation until he was revived in modern times.."
+          },
+          {
+            "id": 8,
+            "name": "Romanova",
+            "city": "NY",
+            "summary": "Black Widow (Natalia Alianovna \"Natasha\" Romanova; is a fictional character appearing in American comic books published by Marvel Comics."
+          },
+          {
+            "id": 9,
+            "name": "Strange",
+            "city": "NY",
+            "summary": "Bruce Wayne, a wealthy American playboy, philanthropist, and industrialist who resides in Gotham City."
+          },
+          {
+            "id": 10,
+            "name": "Wayne",
+            "city": "Gotham City",
+            "summary": "The character begins as an extremely talented but egotistical surgeon who loses the ability to operate after a car crash severely damages his hands beyond repair. Searching the globe for healing, he encounters the Ancient One, the Sorcerer Supreme.."
+          }
+        ]
+      }
     }
   ],
   "metadata": {
