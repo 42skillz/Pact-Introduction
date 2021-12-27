@@ -21,8 +21,8 @@ namespace ProviderPact.Middleware
             _next = next;
             _providerStates = new Dictionary<string, Action>
             {
-                ["No data"] = RemoveAllData,
-                ["There is data"] = AddData
+                ["There is no employee"] = RemoveAllData,
+                ["There are employees"] = AddData
             };
         }
 

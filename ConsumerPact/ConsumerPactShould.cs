@@ -27,7 +27,7 @@ namespace ConsumerPact
         {
             const int employeeId = 1;
 
-            _mockProviderService.Given("There is data")
+            _mockProviderService.Given("There are employees")
                 .UponReceiving("A valid GET employee")
                 // When
                 .With(new ProviderServiceRequest
@@ -57,16 +57,16 @@ namespace ConsumerPact
             
             if (httpResponseMessage.IsSuccessStatusCode)
             {
-                AssertEmployee(await AdaptEmployee(httpResponseMessage));
+                AssertFirstEmployee(await AdaptEmployee(httpResponseMessage));
             }
             
             _mockProviderService.VerifyInteractions();
         }
 
         [Fact]
-        public void Retrieve_all_employees()
+        public void Validate_all_employees()
         {
-            _mockProviderService.Given("There is data")
+            _mockProviderService.Given("There are employees")
                 .UponReceiving("Retrieve all employees")
                 .With(new ProviderServiceRequest
                 {
@@ -111,7 +111,7 @@ namespace ConsumerPact
             };
         }
 
-        private static void AssertEmployee(Employee employee)
+        private static void AssertFirstEmployee(Employee employee)
         {
             Check.That(employee.Id).IsEqualTo(employee.Id);
             Check.That(employee.Name).IsEqualTo("Parker");

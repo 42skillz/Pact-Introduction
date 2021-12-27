@@ -7,28 +7,8 @@
   },
   "interactions": [
     {
-      "description": "A valid GET employee",
-      "providerState": "There is data",
-      "request": {
-        "method": "get",
-        "path": "/api/employees/1"
-      },
-      "response": {
-        "status": 200,
-        "headers": {
-          "Content-Type": "application/json; charset=utf-8"
-        },
-        "body": {
-          "id": 1,
-          "name": "Parker",
-          "city": "NY",
-          "summary": "Peter Parker is the secret identity of the character Spider-Man."
-        }
-      }
-    },
-    {
       "description": "Retrieve all employees",
-      "providerState": "There is data",
+      "providerState": "There are employees",
       "request": {
         "method": "get",
         "path": "/api/employees"
