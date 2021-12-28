@@ -38,19 +38,25 @@ namespace ProviderSuperHeroesConsumerSuperHeroPact
             // Arrange
             var config = new PactVerifierConfig
             {
+                ProviderVersion = "1.0.0",
+                PublishVerificationResults = true,
                 Outputters = new List<IOutput>
                 {
                     new XUnitOutput(_outputHelper)
                 },
                 Verbose = true
             };
-
+            
             //Act / Assert
             IPactVerifier pactVerifier = new PactVerifier(config);
+            var pactUriOptions = new PactUriOptions()
+                .SetBearerAuthentication("JjO7m8_Dm5DFCgUWsG8GAg");
+
             pactVerifier.ProviderState($"{_pactServiceUri}/provider-states")
                 .ServiceProvider("ProviderSuperHeroes", _providerUri)
-                .HonoursPactWith("ConsumerSuperHero")
-                .PactUri(@"..\..\..\..\pacts\consumersuperheroes-providersuperheroes.json")
+                .HonoursPactWith("ConsumerSuperHeroes")
+                .PactUri("https://42skillz.pactflow.io/pacts/provider/ProviderSuperHeroes/consumer/ConsumerSuperHeroes/latest", 
+                    pactUriOptions)
                 .Verify();
         }
 
