@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
@@ -21,9 +22,14 @@ namespace ConsumerSuperHero
 
             // Retrieve one superHeroFan
             var response = await superHeroAdapter.GetSuperHeroById(superHeroId);
-            var superHeroFan = JsonConvert.DeserializeObject<SuperHeroFan>(await response.Content.ReadAsStringAsync());
+            var superHeroFan = await AdaptSuperHero(response);
             Console.WriteLine(
                 $"Retrieve superHeroFan: ID: {superHeroFan.Id} FirstName: {superHeroFan.FirstName} Name: {superHeroFan.Name} Summary: {superHeroFan.Summary}.");
+        }
+
+        private static async Task<SuperHeroFan> AdaptSuperHero(HttpResponseMessage response)
+        {
+            return JsonConvert.DeserializeObject<SuperHeroFan>(await response.Content.ReadAsStringAsync());
         }
     }
 }
