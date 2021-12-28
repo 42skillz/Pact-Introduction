@@ -7,7 +7,7 @@
   },
   "interactions": [
     {
-      "description": "GET one employee",
+      "description": "One employee",
       "providerState": "There are employees",
       "request": {
         "method": "get",
@@ -26,7 +26,7 @@
       }
     },
     {
-      "description": "GET employees",
+      "description": "All employees",
       "providerState": "There are employees",
       "request": {
         "method": "get",

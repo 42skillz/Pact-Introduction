@@ -29,7 +29,7 @@ namespace ConsumerEmployeePact
             const int employeeId = 1;
 
             _mockProviderService.Given("There are employees")
-                .UponReceiving("GET one employee")
+                .UponReceiving("One employee")
                 // When
                 .With(new ProviderServiceRequest
                 {
@@ -67,7 +67,7 @@ namespace ConsumerEmployeePact
         public void Validate_all_employees()
         {
             _mockProviderService.Given("There are employees")
-                .UponReceiving("GET employees")
+                .UponReceiving("All employees")
                 .With(new ProviderServiceRequest
                 {
                     Method = HttpVerb.Get,

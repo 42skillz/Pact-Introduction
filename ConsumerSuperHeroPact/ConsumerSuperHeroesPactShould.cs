@@ -28,7 +28,7 @@ namespace ConsumerSuperHeroPact
             const int employeeId = 1;
 
             _mockProviderService.Given("There are superheroes")
-                .UponReceiving("GET one superHero")
+                .UponReceiving("One superHero")
                 // When
                 .With(new ProviderServiceRequest
                 {
