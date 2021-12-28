@@ -9,7 +9,7 @@ namespace ConsumerCharacter
 {
     internal static class Program
     {
-        static async Task Main(string[] args)
+        private static async Task Main(string[] args)
         {
             var characterId = 1;
             var baseUri = "http://localhost:5000";
@@ -21,14 +21,14 @@ namespace ConsumerCharacter
             }
 
             var employeeRepository = new CharacterAdapter(baseUri);
-            
+
             // Retrieve one character
             var character = await AdaptCharacter(await employeeRepository.GetCharacterById(characterId));
             Console.WriteLine($"Retrieve employee: ID: {character.Id} Name: {character.Name} City: {character.City}.");
 
             // Retrieve all characters
             var characters = await AdaptCharacters(await employeeRepository.GetCharacters());
-            Console.WriteLine($"Retrieve all characters: {string.Join(", ", characters.Select( e => e.Name))}.");
+            Console.WriteLine($"Retrieve all characters: {string.Join(", ", characters.Select(e => e.Name))}.");
         }
 
         private static async Task<Character> AdaptCharacter(HttpResponseMessage response)

@@ -13,10 +13,10 @@ namespace ProviderSuperHeroesConsumerCharacterPact
 {
     public sealed class ProviderPactShould : IDisposable
     {
-        private readonly string _providerUri;
-        private readonly string _pactServiceUri;
-        private readonly IWebHost _webHost;
         private readonly ITestOutputHelper _outputHelper;
+        private readonly string _pactServiceUri;
+        private readonly string _providerUri;
+        private readonly IWebHost _webHost;
 
         public ProviderPactShould(ITestOutputHelper output)
         {
@@ -55,6 +55,7 @@ namespace ProviderSuperHeroesConsumerCharacterPact
         }
 
         #region IDisposable Support
+
         private bool _disposedValue; // To detect redundant calls
 
         private void Dispose(bool disposing)
@@ -75,7 +76,7 @@ namespace ProviderSuperHeroesConsumerCharacterPact
         {
             Dispose(true);
         }
+
         #endregion
     }
-
 }

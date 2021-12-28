@@ -8,12 +8,6 @@ namespace ConsumerCharacterPact
 {
     public class ConsumerPactClassFixture : IDisposable
     {
-        private IPactBuilder PactBuilder { get; }
-        public IMockProviderService MockProviderService { get; }
-
-        private int MockServerPort => 9222;
-        public string MockProviderServiceBaseUri => $"http://localhost:{MockServerPort}";
-
         public ConsumerPactClassFixture()
         {
             // Using Spec version 2.0.0 more details at https://goo.gl/UrBSRc
@@ -29,13 +23,20 @@ namespace ConsumerCharacterPact
             PactBuilder.ServiceConsumer("ConsumerCharacter")
                 .HasPactWith("ProviderSuperHeroes");
 
-            MockProviderService = PactBuilder.MockService(MockServerPort, new JsonSerializerSettings()
+            MockProviderService = PactBuilder.MockService(MockServerPort, new JsonSerializerSettings
             {
                 ContractResolver = new CamelCasePropertyNamesContractResolver()
             });
         }
 
+        private IPactBuilder PactBuilder { get; }
+        public IMockProviderService MockProviderService { get; }
+
+        private int MockServerPort => 9222;
+        public string MockProviderServiceBaseUri => $"http://localhost:{MockServerPort}";
+
         #region IDisposable Support
+
         private bool _disposedValue; // To detect redundant calls
 
         protected virtual void Dispose(bool disposing)
@@ -43,10 +44,8 @@ namespace ConsumerCharacterPact
             if (!_disposedValue)
             {
                 if (disposing)
-                {
                     // This will save the pact file once finished.
                     PactBuilder.Build();
-                }
 
                 _disposedValue = true;
             }
@@ -58,6 +57,7 @@ namespace ConsumerCharacterPact
             // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
             Dispose(true);
         }
+
         #endregion
     }
 }

@@ -26,7 +26,6 @@ namespace ConsumerSuperHero
             {
                 throw new Exception("There was a problem connecting to Provider API.", e);
             }
-            
         }
     }
 }

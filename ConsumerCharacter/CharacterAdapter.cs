@@ -26,7 +26,6 @@ namespace ConsumerCharacter
             {
                 throw new Exception("There was a problem connecting to Provider API.", e);
             }
-            
         }
 
         public async Task<HttpResponseMessage> GetCharacters()
@@ -37,13 +36,12 @@ namespace ConsumerCharacter
 
             try
             {
-                return await client.GetAsync($"api/superheroes");
+                return await client.GetAsync("api/superheroes");
             }
             catch (Exception e)
             {
                 throw new Exception("There was a problem connecting to Provider API.", e);
             }
-            
         }
     }
 }
