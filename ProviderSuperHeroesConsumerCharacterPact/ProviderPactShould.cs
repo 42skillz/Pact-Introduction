@@ -4,12 +4,12 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using PactNet;
 using PactNet.Infrastructure.Outputters;
-using ProviderSuperHeroesForConsumerCharacterPact.Middleware;
-using ProviderSuperHeroesForConsumerCharacterPact.XUnitHelpers;
+using ProviderSuperHeroesConsumerCharacterPact.Middleware;
+using ProviderSuperHeroesConsumerCharacterPact.XUnitHelpers;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace ProviderSuperHeroesForConsumerCharacterPact
+namespace ProviderSuperHeroesConsumerCharacterPact
 {
     public sealed class ProviderPactShould : IDisposable
     {

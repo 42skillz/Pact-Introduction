@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using ConsumerSuperHeroes;
+using ConsumerSuperHero;
 using Newtonsoft.Json;
 using NFluent;
 using PactNet.Mocks.MockHttpService;

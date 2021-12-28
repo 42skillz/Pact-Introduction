@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace ConsumerSuperHeroes
+namespace ConsumerSuperHero
 {
     internal static class Program
     {

@@ -1,4 +1,4 @@
-namespace ProviderSuperHeroesForConsumerSuperHeroPact.Middleware
+namespace ProviderSuperHeroesConsumerCharacterPact.Middleware
 {
     public class ProviderState
     {

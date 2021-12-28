@@ -8,27 +8,28 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http;
 using Newtonsoft.Json;
 
-namespace ProviderSuperHeroesForConsumerCharacterPact.Middleware
+namespace ProviderSuperHeroesConsumerSuperHeroPact.Middleware
 {
     public class ProviderStateMiddleware
     {
-        private const string ConsumerName = "ConsumerCharacter";
+        private const string ConsumerName = "ConsumerSuperHeroes";
         private readonly RequestDelegate _next;
         private readonly IDictionary<string, Action> _providerStates;
+        private const string DataPath = @"..\..\..\..\data";
 
         public ProviderStateMiddleware(RequestDelegate next)
         {
             _next = next;
             _providerStates = new Dictionary<string, Action>
             {
-                ["There is no character"] = RemoveAllData,
-                ["There are characters"] = AddData
+                ["There is no superhero"] = RemoveAllData,
+                ["There are superheroes"] = AddData
             };
         }
 
         private void RemoveAllData()
         {
-            var path = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\data");
+            var path = Path.Combine(Directory.GetCurrentDirectory(), DataPath);
             var deletePath = Path.Combine(path, "someData.txt");
 
             if (File.Exists(deletePath))
@@ -39,7 +40,7 @@ namespace ProviderSuperHeroesForConsumerCharacterPact.Middleware
 
         private void AddData()
         {
-            var path = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\data");
+            var path = Path.Combine(Directory.GetCurrentDirectory(), DataPath);
             var writePath = Path.Combine(path, "someData.txt");
 
             if (!File.Exists(writePath))
