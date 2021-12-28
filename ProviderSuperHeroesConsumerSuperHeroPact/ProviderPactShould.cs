@@ -35,7 +35,6 @@ namespace ProviderSuperHeroesConsumerSuperHeroPact
         [Fact]
         public void Ensure_honors_pact_contract_with_consumer()
         {
-            // Arrange
             var config = new PactVerifierConfig
             {
                 Outputters = new List<IOutput>
@@ -45,7 +44,6 @@ namespace ProviderSuperHeroesConsumerSuperHeroPact
                 Verbose = true
             };
 
-            //Act / Assert
             IPactVerifier pactVerifier = new PactVerifier(config);
             pactVerifier.ProviderState($"{_pactServiceUri}/provider-states")
                 .ServiceProvider("ProviderSuperHeroes", _providerUri)

@@ -55,7 +55,7 @@ namespace ConsumerSuperHeroPact
             var httpResponseMessage = new SuperHeroAdapter(_mockProviderServiceBaseUri)
                 .GetSuperHeroById(employeeId).GetAwaiter().GetResult();
 
-            if (httpResponseMessage.IsSuccessStatusCode) AssertFirstSuperHero(await AdaptEmployee(httpResponseMessage));
+            if (httpResponseMessage.IsSuccessStatusCode) AssertFirstSuperHero(await AdaptSuperHero(httpResponseMessage));
 
             _mockProviderService.VerifyInteractions();
         }
@@ -69,7 +69,7 @@ namespace ConsumerSuperHeroPact
             Check.That(superHero.Summary).IsEqualTo("Peter Parker is the secret identity of the character Spider-Man.");
         }
 
-        private static async Task<SuperHeroFan> AdaptEmployee(HttpResponseMessage httpResponseMessage)
+        private static async Task<SuperHeroFan> AdaptSuperHero(HttpResponseMessage httpResponseMessage)
         {
             return JsonConvert.DeserializeObject<SuperHeroFan>(await httpResponseMessage.Content.ReadAsStringAsync());
         }
