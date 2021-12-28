@@ -1,0 +1,69 @@
+{
+  "consumer": {
+    "name": "ConsumerEmployee"
+  },
+  "provider": {
+    "name": "ProviderSuperHeroes"
+  },
+  "interactions": [
+    {
+      "description": "GET one employee",
+      "providerState": "There are employees",
+      "request": {
+        "method": "get",
+        "path": "/api/superheroes/1"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "body": {
+          "id": 1,
+          "name": "Parker",
+          "city": "NY"
+        }
+      }
+    },
+    {
+      "description": "GET employees",
+      "providerState": "There are employees",
+      "request": {
+        "method": "get",
+        "path": "/api/superheroes"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "body": [
+          {
+            "id": 1,
+            "name": "string",
+            "city": "string"
+          }
+        ],
+        "matchingRules": {
+          "$.body": {
+            "min": 1
+          },
+          "$.body[*].*": {
+            "match": "type"
+          },
+          "$.body[*].name": {
+            "match": "type"
+          },
+          "$.body[*].city": {
+            "match": "type"
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "2.0.0"
+    }
+  }
+}
