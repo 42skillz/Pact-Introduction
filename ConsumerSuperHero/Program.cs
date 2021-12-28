@@ -6,7 +6,7 @@ namespace ConsumerSuperHero
 {
     internal static class Program
     {
-        static async Task Main(string[] args)
+        private static async Task Main(string[] args)
         {
             var superHeroId = 1;
             var baseUri = "http://localhost:5000";
@@ -18,11 +18,12 @@ namespace ConsumerSuperHero
             }
 
             var superHeroAdapter = new SuperHeroAdapter(baseUri);
-            
+
             // Retrieve one superHeroFan
             var response = await superHeroAdapter.GetSuperHeroById(superHeroId);
-            SuperHeroFan superHeroFan = JsonConvert.DeserializeObject<SuperHeroFan>(await response.Content.ReadAsStringAsync());
-            Console.WriteLine($"Retrieve superHeroFan: ID: {superHeroFan.Id} FirstName: {superHeroFan.FirstName} Name: {superHeroFan.Name} Summary: {superHeroFan.Summary}.");
+            var superHeroFan = JsonConvert.DeserializeObject<SuperHeroFan>(await response.Content.ReadAsStringAsync());
+            Console.WriteLine(
+                $"Retrieve superHeroFan: ID: {superHeroFan.Id} FirstName: {superHeroFan.FirstName} Name: {superHeroFan.Name} Summary: {superHeroFan.Summary}.");
         }
     }
 }

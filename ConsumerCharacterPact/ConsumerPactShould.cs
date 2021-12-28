@@ -34,7 +34,7 @@ namespace ConsumerCharacterPact
                 .With(new ProviderServiceRequest
                 {
                     Method = HttpVerb.Get,
-                    Path = $"/api/superheroes/{characterId}",
+                    Path = $"/api/superheroes/{characterId}"
                 })
                 // Then
                 .WillRespondWith(new ProviderServiceResponse
@@ -51,11 +51,9 @@ namespace ConsumerCharacterPact
 
             if (new CharacterAdapter(_mockProviderServiceBaseUri)
                 .GetCharacterById(characterId).GetAwaiter().GetResult().IsSuccessStatusCode)
-            {
                 AssertFirstCharacter(await AdaptCharacter(new CharacterAdapter(_mockProviderServiceBaseUri)
                     .GetCharacterById(characterId).GetAwaiter().GetResult()));
-            }
-            
+
             _mockProviderService.VerifyInteractions();
         }
 
@@ -67,7 +65,7 @@ namespace ConsumerCharacterPact
                 .With(new ProviderServiceRequest
                 {
                     Method = HttpVerb.Get,
-                    Path = $"/api/superheroes",
+                    Path = "/api/superheroes"
                 })
                 .WillRespondWith(new ProviderServiceResponse
                 {
@@ -78,12 +76,12 @@ namespace ConsumerCharacterPact
                         ["Content-Type"] = "application/json; charset=utf-8"
                     },
 
-                    Body = Match.MinType(new 
-                    {
-                        Id = 1, 
-                        Name = Match.Type("string"), 
-                        City = Match.Type("string")
-                    },1
+                    Body = Match.MinType(new
+                        {
+                            Id = 1,
+                            Name = Match.Type("string"),
+                            City = Match.Type("string")
+                        }, 1
                     )
                 });
 
@@ -91,7 +89,7 @@ namespace ConsumerCharacterPact
                 .GetCharacters().GetAwaiter().GetResult();
 
             Check.That((int)result.StatusCode).IsEqualTo(200);
-            
+
             // If the provider works => generate pact file
             _mockProviderService.VerifyInteractions();
         }

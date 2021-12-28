@@ -33,7 +33,7 @@ namespace ConsumerSuperHeroPact
                 .With(new ProviderServiceRequest
                 {
                     Method = HttpVerb.Get,
-                    Path = $"/api/superheroes/{employeeId}",
+                    Path = $"/api/superheroes/{employeeId}"
                 })
                 // Then
                 .WillRespondWith(new ProviderServiceResponse
@@ -45,24 +45,21 @@ namespace ConsumerSuperHeroPact
                         ["Content-Type"] = "application/json; charset=utf-8"
                     },
 
-                    Body = new SuperHeroFan()
+                    Body = new SuperHeroFan
                     {
-                        Id = 1, Name = "Parker", FirstName = "Peter", Summary = "Peter Parker is the secret identity of the character Spider-Man."
+                        Id = 1, Name = "Parker", FirstName = "Peter",
+                        Summary = "Peter Parker is the secret identity of the character Spider-Man."
                     }
                 });
 
             var httpResponseMessage = new SuperHeroAdapter(_mockProviderServiceBaseUri)
                 .GetSuperHeroById(employeeId).GetAwaiter().GetResult();
-            
-            if (httpResponseMessage.IsSuccessStatusCode)
-            {
-                AssertFirstSuperHero(await AdaptEmployee(httpResponseMessage));
-            }
-            
+
+            if (httpResponseMessage.IsSuccessStatusCode) AssertFirstSuperHero(await AdaptEmployee(httpResponseMessage));
+
             _mockProviderService.VerifyInteractions();
         }
 
-        
 
         private static void AssertFirstSuperHero(SuperHeroFan superHero)
         {

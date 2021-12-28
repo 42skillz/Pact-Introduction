@@ -8,12 +8,6 @@ namespace ConsumerCharacterPact
 {
     public class ConsumerPactClassFixture : IDisposable
     {
-        private IPactBuilder PactBuilder { get; }
-        public IMockProviderService MockProviderService { get; }
-
-        private int MockServerPort => 9222;
-        public string MockProviderServiceBaseUri => $"http://localhost:{MockServerPort}";
-
         public ConsumerPactClassFixture()
         {
             // Using Spec version 2.0.0 more details at https://goo.gl/UrBSRc
@@ -29,13 +23,20 @@ namespace ConsumerCharacterPact
             PactBuilder.ServiceConsumer("ConsumerCharacter")
                 .HasPactWith("ProviderSuperHeroes");
 
-            MockProviderService = PactBuilder.MockService(MockServerPort, new JsonSerializerSettings()
+            MockProviderService = PactBuilder.MockService(MockServerPort, new JsonSerializerSettings
             {
                 ContractResolver = new CamelCasePropertyNamesContractResolver()
             });
         }
 
+        private IPactBuilder PactBuilder { get; }
+        public IMockProviderService MockProviderService { get; }
+
+        private int MockServerPort => 9222;
+        public string MockProviderServiceBaseUri => $"http://localhost:{MockServerPort}";
+
         #region IDisposable Support
+
         private bool _disposedValue; // To detect redundant calls
 
         protected virtual void Dispose(bool disposing)
@@ -47,10 +48,11 @@ namespace ConsumerCharacterPact
                     // This will save the pact file once finished.
                     PactBuilder.Build();
 
-                    var brokerUriOptions = new PactUriOptions("JjO7m8_Dm5DFCgUWsG8GAg").SetSslCaFilePath("c:\\dev\\ca.crt");
+                    var brokerUriOptions =
+                        new PactUriOptions("JjO7m8_Dm5DFCgUWsG8GAg").SetSslCaFilePath("c:\\dev\\ca.crt");
                     var pactPublisher = new PactPublisher("https://42skillz.pactflow.io", brokerUriOptions);
-                    pactPublisher.PublishToBroker(@"..\..\..\..\pacts\consumercharacter-providersuperheroes.json", 
-                        "1.0.1", 
+                    pactPublisher.PublishToBroker(@"..\..\..\..\pacts\consumercharacter-providersuperheroes.json",
+                        "1.0.1",
                         new[] { "master" });
                 }
 
@@ -64,6 +66,7 @@ namespace ConsumerCharacterPact
             // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
             Dispose(true);
         }
+
         #endregion
     }
 }

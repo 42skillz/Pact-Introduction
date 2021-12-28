@@ -13,9 +13,9 @@ namespace ProviderSuperHeroesConsumerSuperHeroPact.Middleware
     public class ProviderStateMiddleware
     {
         private const string ConsumerName = "ConsumerSuperHeroes";
+        private const string DataPath = @"..\..\..\..\data";
         private readonly RequestDelegate _next;
         private readonly IDictionary<string, Action> _providerStates;
-        private const string DataPath = @"..\..\..\..\data";
 
         public ProviderStateMiddleware(RequestDelegate next)
         {
@@ -32,10 +32,7 @@ namespace ProviderSuperHeroesConsumerSuperHeroPact.Middleware
             var path = Path.Combine(Directory.GetCurrentDirectory(), DataPath);
             var deletePath = Path.Combine(path, "someData.txt");
 
-            if (File.Exists(deletePath))
-            {
-                File.Delete(deletePath);
-            }
+            if (File.Exists(deletePath)) File.Delete(deletePath);
         }
 
         private void AddData()
@@ -43,22 +40,19 @@ namespace ProviderSuperHeroesConsumerSuperHeroPact.Middleware
             var path = Path.Combine(Directory.GetCurrentDirectory(), DataPath);
             var writePath = Path.Combine(path, "someData.txt");
 
-            if (!File.Exists(writePath))
-            { 
-                File.Create(writePath);
-            }
+            if (!File.Exists(writePath)) File.Create(writePath);
         }
 
         public async Task Invoke(HttpContext context)
         {
             if (context.Request.Path.Value == "/provider-states")
             {
-                await this.HandleProviderStatesRequestAsync(context);
+                await HandleProviderStatesRequestAsync(context);
                 await context.Response.WriteAsync(string.Empty);
             }
             else
             {
-                await this._next(context);
+                await _next(context);
             }
         }
 
@@ -80,9 +74,7 @@ namespace ProviderSuperHeroesConsumerSuperHeroPact.Middleware
                 //A null or empty provider state key must be handled
                 if (providerState != null && !string.IsNullOrEmpty(providerState.State) &&
                     providerState.Consumer == ConsumerName)
-                {
                     _providerStates[providerState.State].Invoke();
-                }
             }
         }
     }

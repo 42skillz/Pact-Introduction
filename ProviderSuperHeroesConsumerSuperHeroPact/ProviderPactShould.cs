@@ -13,10 +13,10 @@ namespace ProviderSuperHeroesConsumerSuperHeroPact
 {
     public sealed class ProviderPactShould : IDisposable
     {
-        private readonly string _providerUri;
-        private readonly string _pactServiceUri;
-        private readonly IWebHost _webHost;
         private readonly ITestOutputHelper _outputHelper;
+        private readonly string _pactServiceUri;
+        private readonly string _providerUri;
+        private readonly IWebHost _webHost;
 
         public ProviderPactShould(ITestOutputHelper output)
         {
@@ -46,7 +46,7 @@ namespace ProviderSuperHeroesConsumerSuperHeroPact
                 },
                 Verbose = true
             };
-            
+
             //Act / Assert
             IPactVerifier pactVerifier = new PactVerifier(config);
             var pactUriOptions = new PactUriOptions()
@@ -55,12 +55,14 @@ namespace ProviderSuperHeroesConsumerSuperHeroPact
             pactVerifier.ProviderState($"{_pactServiceUri}/provider-states")
                 .ServiceProvider("ProviderSuperHeroes", _providerUri)
                 .HonoursPactWith("ConsumerSuperHeroes")
-                .PactUri("https://42skillz.pactflow.io/pacts/provider/ProviderSuperHeroes/consumer/ConsumerSuperHeroes/latest", 
+                .PactUri(
+                    "https://42skillz.pactflow.io/pacts/provider/ProviderSuperHeroes/consumer/ConsumerSuperHeroes/latest",
                     pactUriOptions)
                 .Verify();
         }
 
         #region IDisposable Support
+
         private bool _disposedValue; // To detect redundant calls
 
         private void Dispose(bool disposing)
@@ -81,7 +83,7 @@ namespace ProviderSuperHeroesConsumerSuperHeroPact
         {
             Dispose(true);
         }
+
         #endregion
     }
-
 }
