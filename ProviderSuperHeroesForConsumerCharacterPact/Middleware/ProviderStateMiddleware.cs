@@ -8,11 +8,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http;
 using Newtonsoft.Json;
 
-namespace ProviderSuperHeroesForConsumerEmployeePact.Middleware
+namespace ProviderSuperHeroesForConsumerCharacterPact.Middleware
 {
     public class ProviderStateMiddleware
     {
-        private const string ConsumerName = "ConsumerEmployee";
+        private const string ConsumerName = "ConsumerCharacter";
         private readonly RequestDelegate _next;
         private readonly IDictionary<string, Action> _providerStates;
 
@@ -21,8 +21,8 @@ namespace ProviderSuperHeroesForConsumerEmployeePact.Middleware
             _next = next;
             _providerStates = new Dictionary<string, Action>
             {
-                ["There is no employee"] = RemoveAllData,
-                ["There are employees"] = AddData
+                ["There is no character"] = RemoveAllData,
+                ["There are characters"] = AddData
             };
         }
 

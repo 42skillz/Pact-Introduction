@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using ConsumerEmployee;
+using ConsumerCharacter;
 using Newtonsoft.Json;
 using NFluent;
 using PactNet.Matchers;
@@ -9,7 +9,7 @@ using PactNet.Mocks.MockHttpService;
 using PactNet.Mocks.MockHttpService.Models;
 using Xunit;
 
-namespace ConsumerEmployeePact
+namespace ConsumerCharacterPact
 {
     public class ConsumerPactShould : IClassFixture<ConsumerPactClassFixture>
     {
@@ -24,17 +24,17 @@ namespace ConsumerEmployeePact
         }
 
         [Fact]
-        public async Task Validate_one_employee_by_id()
+        public async Task Validate_one_character_by_id()
         {
-            const int employeeId = 1;
+            const int characterId = 1;
 
-            _mockProviderService.Given("There are employees")
-                .UponReceiving("One employee")
+            _mockProviderService.Given("There are characters")
+                .UponReceiving("One character")
                 // When
                 .With(new ProviderServiceRequest
                 {
                     Method = HttpVerb.Get,
-                    Path = $"/api/superheroes/{employeeId}",
+                    Path = $"/api/superheroes/{characterId}",
                 })
                 // Then
                 .WillRespondWith(new ProviderServiceResponse
@@ -46,28 +46,24 @@ namespace ConsumerEmployeePact
                         ["Content-Type"] = "application/json; charset=utf-8"
                     },
 
-                    Body = new Employee
-                    {
-                        Id = 1, Name = "Parker", City = "NY"
-                    }
+                    Body = new Character(1, "Parker", "NY")
                 });
 
-            var httpResponseMessage = new EmployeeAdapter(_mockProviderServiceBaseUri)
-                .GetEmployeeById(employeeId).GetAwaiter().GetResult();
-            
-            if (httpResponseMessage.IsSuccessStatusCode)
+            if (new CharacterAdapter(_mockProviderServiceBaseUri)
+                .GetCharacterById(characterId).GetAwaiter().GetResult().IsSuccessStatusCode)
             {
-                AssertFirstEmployee(await AdaptEmployee(httpResponseMessage));
+                AssertFirstCharacter(await AdaptCharacter(new CharacterAdapter(_mockProviderServiceBaseUri)
+                    .GetCharacterById(characterId).GetAwaiter().GetResult()));
             }
             
             _mockProviderService.VerifyInteractions();
         }
 
         [Fact]
-        public void Validate_all_employees()
+        public void Validate_all_characters()
         {
-            _mockProviderService.Given("There are employees")
-                .UponReceiving("All employees")
+            _mockProviderService.Given("There are characters")
+                .UponReceiving("All characters")
                 .With(new ProviderServiceRequest
                 {
                     Method = HttpVerb.Get,
@@ -91,25 +87,25 @@ namespace ConsumerEmployeePact
                     )
                 });
 
-            var httpResponseMessage = new EmployeeAdapter(_mockProviderServiceBaseUri)
-                .GetEmployees().GetAwaiter().GetResult();
+            var result = new CharacterAdapter(_mockProviderServiceBaseUri)
+                .GetCharacters().GetAwaiter().GetResult();
 
-            Check.That((int)httpResponseMessage.StatusCode).IsEqualTo(200);
+            Check.That((int)result.StatusCode).IsEqualTo(200);
             
             // If the provider works => generate pact file
             _mockProviderService.VerifyInteractions();
         }
 
-        private static void AssertFirstEmployee(Employee employee)
+        private static void AssertFirstCharacter(Character character)
         {
-            Check.That(employee.Id).IsEqualTo(employee.Id);
-            Check.That(employee.Name).IsEqualTo("Parker");
-            Check.That(employee.City).IsEqualTo("NY");
+            Check.That(character.Id).IsEqualTo(character.Id);
+            Check.That(character.Name).IsEqualTo("Parker");
+            Check.That(character.City).IsEqualTo("NY");
         }
 
-        private static async Task<Employee> AdaptEmployee(HttpResponseMessage httpResponseMessage)
+        private static async Task<Character> AdaptCharacter(HttpResponseMessage httpResponseMessage)
         {
-            return JsonConvert.DeserializeObject<Employee>(await httpResponseMessage.Content.ReadAsStringAsync());
+            return JsonConvert.DeserializeObject<Character>(await httpResponseMessage.Content.ReadAsStringAsync());
         }
     }
 }

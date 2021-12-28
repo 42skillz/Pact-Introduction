@@ -1,7 +1,7 @@
 using PactNet.Infrastructure.Outputters;
 using Xunit.Abstractions;
 
-namespace ProviderSuperHeroesForConsumerEmployeePact.XUnitHelpers
+namespace ProviderSuperHeroesForConsumerCharacterPact.XUnitHelpers
 {
     public class XUnitOutput : IOutput
     {

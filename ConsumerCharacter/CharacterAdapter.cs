@@ -2,18 +2,18 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace ConsumerEmployee
+namespace ConsumerCharacter
 {
-    public class EmployeeAdapter
+    public class CharacterAdapter
     {
         private readonly string _uriEmployeeService;
 
-        public EmployeeAdapter(string uriEmployeeService)
+        public CharacterAdapter(string uriEmployeeService)
         {
             _uriEmployeeService = uriEmployeeService;
         }
 
-        public async Task<HttpResponseMessage> GetEmployeeById(int id)
+        public async Task<HttpResponseMessage> GetCharacterById(int id)
         {
             using var client = new HttpClient();
 
@@ -29,7 +29,7 @@ namespace ConsumerEmployee
             
         }
 
-        public async Task<HttpResponseMessage> GetEmployees()
+        public async Task<HttpResponseMessage> GetCharacters()
         {
             using var client = new HttpClient();
 

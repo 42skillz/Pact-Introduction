@@ -4,12 +4,12 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using PactNet;
 using PactNet.Infrastructure.Outputters;
-using ProviderSuperHeroesForConsumerEmployeePact.Middleware;
-using ProviderSuperHeroesForConsumerEmployeePact.XUnitHelpers;
+using ProviderSuperHeroesForConsumerCharacterPact.Middleware;
+using ProviderSuperHeroesForConsumerCharacterPact.XUnitHelpers;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace ProviderSuperHeroesForConsumerEmployeePact
+namespace ProviderSuperHeroesForConsumerCharacterPact
 {
     public sealed class ProviderPactShould : IDisposable
     {
@@ -49,8 +49,8 @@ namespace ProviderSuperHeroesForConsumerEmployeePact
             IPactVerifier pactVerifier = new PactVerifier(config);
             pactVerifier.ProviderState($"{_pactServiceUri}/provider-states")
                 .ServiceProvider("ProviderSuperHeroes", _providerUri)
-                .HonoursPactWith("ConsumerEmployee")
-                .PactUri(@"..\..\..\..\pacts\consumeremployee-providersuperheroes.json")
+                .HonoursPactWith("ConsumerCharacter")
+                .PactUri(@"..\..\..\..\pacts\consumercharacter-providersuperheroes.json")
                 .Verify();
         }
 

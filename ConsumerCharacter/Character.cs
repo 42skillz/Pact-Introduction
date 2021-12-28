@@ -1,17 +1,14 @@
-﻿namespace ConsumerEmployee
+﻿namespace ConsumerCharacter
 {
-    public class Employee
+    public class Character
     {
-        public Employee()
-        {
-        }
-
-        public Employee(int id, string name, string city)
+        public Character(int id, string name, string city)
         {
             Id = id;
             Name = name;
             City = city;
         }
+
 
         public int Id { get; set; }
 

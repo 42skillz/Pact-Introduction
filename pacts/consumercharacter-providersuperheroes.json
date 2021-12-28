@@ -1,14 +1,14 @@
 {
   "consumer": {
-    "name": "ConsumerEmployee"
+    "name": "ConsumerCharacter"
   },
   "provider": {
     "name": "ProviderSuperHeroes"
   },
   "interactions": [
     {
-      "description": "One employee",
-      "providerState": "There are employees",
+      "description": "One character",
+      "providerState": "There are characters",
       "request": {
         "method": "get",
         "path": "/api/superheroes/1"
@@ -26,8 +26,8 @@
       }
     },
     {
-      "description": "All employees",
-      "providerState": "There are employees",
+      "description": "All characters",
+      "providerState": "There are characters",
       "request": {
         "method": "get",
         "path": "/api/superheroes"

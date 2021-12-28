@@ -2,21 +2,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsumerEmployeePact", "ConsumerEmployeePact\ConsumerEmployeePact.csproj", "{B3D42BFF-7090-475C-BAE5-90F94D8A7DEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsumerCharacterPact", "ConsumerCharacterPact\ConsumerCharacterPact.csproj", "{B3D42BFF-7090-475C-BAE5-90F94D8A7DEE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProviderSuperHeroesForConsumerEmployeePact", "ProviderSuperHeroesForConsumerEmployeePact\ProviderSuperHeroesForConsumerEmployeePact.csproj", "{D5D9C317-77C1-44FA-A915-315C7CCD5A39}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProviderSuperHeroesForConsumerCharacterPact", "ProviderSuperHeroesForConsumerCharacterPact\ProviderSuperHeroesForConsumerCharacterPact.csproj", "{D5D9C317-77C1-44FA-A915-315C7CCD5A39}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProviderSuperHeroes", "ProviderSuperHeroes\ProviderSuperHeroes.csproj", "{50BC3835-CA1C-4252-81C2-3B3B290229E0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsumerEmployee", "ConsumerEmployee\ConsumerEmployee.csproj", "{F3CED583-5ED0-4A74-A89E-B31ADBDE3715}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsumerCharacter", "ConsumerCharacter\ConsumerCharacter.csproj", "{F3CED583-5ED0-4A74-A89E-B31ADBDE3715}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsumerSuperHero", "ConsumerSuperHero\ConsumerSuperHero.csproj", "{2D378CFC-7BA9-4025-BCFB-E386AAF0AAA4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsumerSuperHeroPact", "ConsumerSuperHeroPact\ConsumerSuperHeroPact.csproj", "{BED18019-034A-4A45-9AF7-02F1B7C48E0A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Employee", "Employee", "{6009A49A-4B56-40E3-B6E6-E3B16D66D1AF}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Character Integration Test", "Character Integration Test", "{6009A49A-4B56-40E3-B6E6-E3B16D66D1AF}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SuperHero", "SuperHero", "{1DBAEE82-61E9-4201-9194-05F02A897390}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SuperHero Integration Test", "SuperHero Integration Test", "{1DBAEE82-61E9-4201-9194-05F02A897390}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProviderSuperHeroesForConsumerSuperHeroPact", "ProviderSuperHeroesForConsumerSuperHeroPact\ProviderSuperHeroesForConsumerSuperHeroPact.csproj", "{968C239F-E8A3-4AC0-ACC4-DC6D4BCE6793}"
 EndProject
