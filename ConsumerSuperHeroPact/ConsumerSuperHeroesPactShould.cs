@@ -25,7 +25,7 @@ namespace ConsumerSuperHeroPact
         [Fact]
         public async Task Validate_one_super_hero_by_id()
         {
-            const int employeeId = 1;
+            const int superHeroId = 1;
 
             _mockProviderService.Given("There are superheroes")
                 .UponReceiving("One fanOfSuperHero")
@@ -33,7 +33,7 @@ namespace ConsumerSuperHeroPact
                 .With(new ProviderServiceRequest
                 {
                     Method = HttpVerb.Get,
-                    Path = $"/api/superheroes/{employeeId}"
+                    Path = $"/api/superheroes/{superHeroId}"
                 })
                 // Then
                 .WillRespondWith(new ProviderServiceResponse
@@ -48,8 +48,8 @@ namespace ConsumerSuperHeroPact
                     Body = new FanOfSuperHero(1, "Peter", "Parker", "Peter Parker is the secret identity of the character Spider-Man.")
                 });
 
-            var httpResponseMessage = new SuperHeroAdapter(_mockProviderServiceBaseUri)
-                .GetSuperHeroById(employeeId).GetAwaiter().GetResult();
+            var httpResponseMessage = await new SuperHeroAdapter(_mockProviderServiceBaseUri)
+                .GetSuperHeroById(superHeroId);
 
             if (httpResponseMessage.IsSuccessStatusCode) AssertFirstSuperHero(await AdaptSuperHero(httpResponseMessage));
 
