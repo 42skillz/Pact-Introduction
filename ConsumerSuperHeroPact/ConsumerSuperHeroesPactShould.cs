@@ -28,7 +28,7 @@ namespace ConsumerSuperHeroPact
             const int employeeId = 1;
 
             _mockProviderService.Given("There are superheroes")
-                .UponReceiving("One superHero")
+                .UponReceiving("One fanOfSuperHero")
                 // When
                 .With(new ProviderServiceRequest
                 {
@@ -45,11 +45,7 @@ namespace ConsumerSuperHeroPact
                         ["Content-Type"] = "application/json; charset=utf-8"
                     },
 
-                    Body = new SuperHeroFan
-                    {
-                        Id = 1, Name = "Parker", FirstName = "Peter",
-                        Summary = "Peter Parker is the secret identity of the character Spider-Man."
-                    }
+                    Body = new FanOfSuperHero(1, "Peter", "Parker", "Peter Parker is the secret identity of the character Spider-Man.")
                 });
 
             var httpResponseMessage = new SuperHeroAdapter(_mockProviderServiceBaseUri)
@@ -61,17 +57,17 @@ namespace ConsumerSuperHeroPact
         }
 
 
-        private static void AssertFirstSuperHero(SuperHeroFan superHero)
+        private static void AssertFirstSuperHero(FanOfSuperHero fanOfSuperHero)
         {
-            Check.That(superHero.Id).IsEqualTo(superHero.Id);
-            Check.That(superHero.FirstName).IsEqualTo("Peter");
-            Check.That(superHero.Name).IsEqualTo("Parker");
-            Check.That(superHero.Summary).IsEqualTo("Peter Parker is the secret identity of the character Spider-Man.");
+            Check.That(fanOfSuperHero.Id).IsEqualTo(fanOfSuperHero.Id);
+            Check.That(fanOfSuperHero.FirstName).IsEqualTo("Peter");
+            Check.That(fanOfSuperHero.Name).IsEqualTo("Parker");
+            Check.That(fanOfSuperHero.Summary).IsEqualTo("Peter Parker is the secret identity of the character Spider-Man.");
         }
 
-        private static async Task<SuperHeroFan> AdaptSuperHero(HttpResponseMessage httpResponseMessage)
+        private static async Task<FanOfSuperHero> AdaptSuperHero(HttpResponseMessage httpResponseMessage)
         {
-            return JsonConvert.DeserializeObject<SuperHeroFan>(await httpResponseMessage.Content.ReadAsStringAsync());
+            return JsonConvert.DeserializeObject<FanOfSuperHero>(await httpResponseMessage.Content.ReadAsStringAsync());
         }
     }
 }

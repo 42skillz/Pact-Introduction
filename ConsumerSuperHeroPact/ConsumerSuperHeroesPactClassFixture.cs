@@ -51,7 +51,7 @@ namespace ConsumerSuperHeroPact
                         new PactUriOptions("JjO7m8_Dm5DFCgUWsG8GAg").SetSslCaFilePath("c:\\dev\\ca.crt");
                     var pactPublisher = new PactPublisher("https://42skillz.pactflow.io", brokerUriOptions);
                     pactPublisher.PublishToBroker(@"..\..\..\..\pacts\consumersuperheroes-providersuperheroes.json",
-                        "1.0.1",
+                        "1.0.2",
                         new[] { "master" });
                 }
 

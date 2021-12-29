@@ -7,7 +7,7 @@
   },
   "interactions": [
     {
-      "description": "One superHero",
+      "description": "One fanOfSuperHero",
       "providerState": "There are superheroes",
       "request": {
         "method": "get",

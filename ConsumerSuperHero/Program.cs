@@ -27,9 +27,9 @@ namespace ConsumerSuperHero
                 $"Retrieve superHeroFan: ID: {superHeroFan.Id} FirstName: {superHeroFan.FirstName} Name: {superHeroFan.Name} Summary: {superHeroFan.Summary}.");
         }
 
-        private static async Task<SuperHeroFan> AdaptSuperHero(HttpResponseMessage response)
+        private static async Task<FanOfSuperHero> AdaptSuperHero(HttpResponseMessage response)
         {
-            return JsonConvert.DeserializeObject<SuperHeroFan>(await response.Content.ReadAsStringAsync());
+            return JsonConvert.DeserializeObject<FanOfSuperHero>(await response.Content.ReadAsStringAsync());
         }
     }
 }
