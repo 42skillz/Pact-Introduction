@@ -49,7 +49,7 @@ namespace ConsumerSuperHeroPact
                         "Peter Parker is the secret identity of the character Spider-Man.")
                 });
 
-            var httpResponseMessage = new SuperHeroAdapter(_mockProviderServiceBaseUri)
+            var httpResponseMessage = new ConsumerSuperHero.ConsumerSuperHero(_mockProviderServiceBaseUri)
                 .GetSuperHeroById(employeeId).GetAwaiter().GetResult();
 
             if (httpResponseMessage.IsSuccessStatusCode) AssertFirstSuperHero(await AdaptSuperHero(httpResponseMessage));

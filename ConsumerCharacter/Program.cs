@@ -20,14 +20,14 @@ namespace ConsumerCharacter
                 baseUri = args[1];
             }
 
-            var employeeRepository = new CharacterAdapter(baseUri);
+            var consumerCharacter = new ConsumerCharacter(baseUri);
 
             // Retrieve one character
-            var character = await AdaptCharacter(await employeeRepository.GetCharacterById(characterId));
+            var character = await AdaptCharacter(await consumerCharacter.GetCharacterById(characterId));
             Console.WriteLine($"Retrieve employee: ID: {character.Id} Name: {character.Name} City: {character.City}.");
 
             // Retrieve all characters
-            var characters = await AdaptCharacters(await employeeRepository.GetCharacters());
+            var characters = await AdaptCharacters(await consumerCharacter.GetCharacters());
             Console.WriteLine($"Retrieve all characters: {string.Join(", ", characters.Select(e => e.Name))}.");
         }
 

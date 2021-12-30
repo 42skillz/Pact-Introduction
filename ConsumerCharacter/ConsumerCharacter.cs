@@ -4,11 +4,11 @@ using System.Threading.Tasks;
 
 namespace ConsumerCharacter
 {
-    public class CharacterAdapter
+    public class ConsumerCharacter
     {
         private readonly string _uriEmployeeService;
 
-        public CharacterAdapter(string uriEmployeeService)
+        public ConsumerCharacter(string uriEmployeeService)
         {
             _uriEmployeeService = uriEmployeeService;
         }
