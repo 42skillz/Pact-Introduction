@@ -48,7 +48,7 @@ namespace ConsumerSuperHeroPact
                     Body = new FanOfSuperHero(1, "Peter", "Parker", "Peter Parker is the secret identity of the character Spider-Man.")
                 });
 
-            var httpResponseMessage = await new SuperHeroAdapter(_mockProviderServiceBaseUri)
+            var httpResponseMessage = await new ConsumerSuperHero.ConsumerSuperHero(_mockProviderServiceBaseUri)
                 .GetSuperHeroById(superHeroId);
 
             if (httpResponseMessage.IsSuccessStatusCode) AssertFirstSuperHero(await AdaptSuperHero(httpResponseMessage));

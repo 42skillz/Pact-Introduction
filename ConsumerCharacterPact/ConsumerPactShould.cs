@@ -49,9 +49,9 @@ namespace ConsumerCharacterPact
                     Body = new Character(1, "Parker", "NY")
                 });
 
-            if (new CharacterAdapter(_mockProviderServiceBaseUri)
+            if (new ConsumerCharacter.ConsumerCharacter(_mockProviderServiceBaseUri)
                 .GetCharacterById(superHeroId).GetAwaiter().GetResult().IsSuccessStatusCode)
-                AssertFirstCharacter(await AdaptCharacter(new CharacterAdapter(_mockProviderServiceBaseUri)
+                AssertFirstCharacter(await AdaptCharacter(new ConsumerCharacter.ConsumerCharacter(_mockProviderServiceBaseUri)
                     .GetCharacterById(superHeroId).GetAwaiter().GetResult()));
 
             _mockProviderService.VerifyInteractions();
@@ -85,7 +85,7 @@ namespace ConsumerCharacterPact
                     )
                 });
 
-            var result = new CharacterAdapter(_mockProviderServiceBaseUri)
+            var result = new ConsumerCharacter.ConsumerCharacter(_mockProviderServiceBaseUri)
                 .GetCharacters().GetAwaiter().GetResult();
 
             Check.That((int)result.StatusCode).IsEqualTo(200);

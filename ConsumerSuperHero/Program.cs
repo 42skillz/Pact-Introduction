@@ -18,11 +18,11 @@ namespace ConsumerSuperHero
                 baseUri = args[1];
             }
 
-            var superHeroAdapter = new SuperHeroAdapter(baseUri);
+            var consumerSuperHero = new ConsumerSuperHero(baseUri);
 
             // Retrieve one superHeroFan
-            var response = await superHeroAdapter.GetSuperHeroById(superHeroId);
-            var superHeroFan = await AdaptSuperHero(response);
+            var superHeroFan = await AdaptSuperHero(await consumerSuperHero.GetSuperHeroById(superHeroId));
+
             Console.WriteLine(
                 $"Retrieve superHeroFan: ID: {superHeroFan.Id}, FirstName: {superHeroFan.FirstName}, Name: {superHeroFan.Name}, Summary: {superHeroFan.Summary}");
         }
