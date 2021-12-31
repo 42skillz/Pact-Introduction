@@ -47,16 +47,22 @@ namespace ConsumerSuperHeroPact
                 {
                     // This will save the pact file once finished.
                     PactBuilder.Build();
-                    var brokerUriOptions =
-                        new PactUriOptions("JjO7m8_Dm5DFCgUWsG8GAg").SetSslCaFilePath("c:\\dev\\ca.crt");
-                    var pactPublisher = new PactPublisher("https://42skillz.pactflow.io", brokerUriOptions);
-                    pactPublisher.PublishToBroker(@"..\..\..\..\pacts\consumersuperheroes-providersuperheroes.json",
-                        "1.0.2",
-                        new[] { "master" });
+
+                    PublishToBroker();
                 }
 
                 _disposedValue = true;
             }
+        }
+
+        private static void PublishToBroker()
+        {
+            var brokerUriOptions =
+                new PactUriOptions("JjO7m8_Dm5DFCgUWsG8GAg").SetSslCaFilePath("c:\\dev\\ca.crt");
+            var pactPublisher = new PactPublisher("https://42skillz.pactflow.io", brokerUriOptions);
+            pactPublisher.PublishToBroker(@"..\..\..\..\pacts\consumersuperheroes-providersuperheroes.json",
+                "1.0.2",
+                new[] { "master" });
         }
 
         // This code added to correctly implement the disposable pattern.
