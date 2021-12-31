@@ -1,0 +1,1 @@
+pact-broker can-i-deploy --pacticipant ConsumerSuperHeroes -l -b https://42skillz.pactflow.io -k JjO7m8_Dm5DFCgUWsG8GAg
