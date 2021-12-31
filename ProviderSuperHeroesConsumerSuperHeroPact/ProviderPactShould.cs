@@ -35,7 +35,6 @@ namespace ProviderSuperHeroesConsumerSuperHeroPact
         [Fact]
         public void Ensure_honors_pact_contract_with_consumer()
         {
-            // Arrange
             var config = new PactVerifierConfig
             {
                 ProviderVersion = "1.0.0",
@@ -47,7 +46,6 @@ namespace ProviderSuperHeroesConsumerSuperHeroPact
                 Verbose = true
             };
 
-            //Act / Assert
             IPactVerifier pactVerifier = new PactVerifier(config);
             var pactUriOptions = new PactUriOptions()
                 .SetBearerAuthentication("JjO7m8_Dm5DFCgUWsG8GAg");
