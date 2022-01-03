@@ -51,8 +51,9 @@ namespace ConsumerCharactersPact
 
             if (new ConsumerCharacters.ConsumerCharacters(_mockProviderServiceBaseUri)
                 .GetCharacterById(characterId).GetAwaiter().GetResult().IsSuccessStatusCode)
-                AssertFirstCharacter(await AdaptCharacter(new ConsumerCharacters.ConsumerCharacters(_mockProviderServiceBaseUri)
-                    .GetCharacterById(characterId).GetAwaiter().GetResult()));
+                AssertFirstCharacter(await AdaptCharacter(
+                    new ConsumerCharacters.ConsumerCharacters(_mockProviderServiceBaseUri)
+                        .GetCharacterById(characterId).GetAwaiter().GetResult()));
 
             _mockProviderService.VerifyInteractions();
         }

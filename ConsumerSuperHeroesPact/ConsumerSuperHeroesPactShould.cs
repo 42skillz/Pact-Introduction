@@ -52,7 +52,8 @@ namespace ConsumerSuperHeroesPact
             var httpResponseMessage = new ConsumerSuperHeroes.ConsumerSuperHeroes(_mockProviderServiceBaseUri)
                 .GetSuperHeroById(employeeId).GetAwaiter().GetResult();
 
-            if (httpResponseMessage.IsSuccessStatusCode) AssertFirstSuperHero(await AdaptSuperHero(httpResponseMessage));
+            if (httpResponseMessage.IsSuccessStatusCode)
+                AssertFirstSuperHero(await AdaptSuperHero(httpResponseMessage));
 
             _mockProviderService.VerifyInteractions();
         }

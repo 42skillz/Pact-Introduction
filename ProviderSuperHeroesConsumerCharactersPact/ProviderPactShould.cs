@@ -13,10 +13,12 @@ namespace ProviderSuperHeroesConsumerCharactersPact
 {
     public sealed class ProviderPactShould : IDisposable
     {
-        private readonly ITestOutputHelper _outputHelper;
+        private const string ProviderName = "ProviderSuperHeroes";
+        private const string ConsumerName = "ConsumerCharacters";
         private const string ProviderUriBase = "http://localhost:5000";
         private const string ProviderStateUriBase = "http://localhost:5002";
         private const string FileUri = @"..\..\..\..\pacts\consumercharacters-providersuperheroes.json";
+        private readonly ITestOutputHelper _outputHelper;
         private IWebHost _webHost;
 
 
@@ -30,7 +32,7 @@ namespace ProviderSuperHeroesConsumerCharactersPact
         [Fact]
         public void Ensure_honors_pact_contract_with_consumer()
         {
-            PactVerify(ProviderUriBase, "ProviderSuperHeroes", "ConsumerCharacters", FileUri, ProviderStateUriBase);
+            PactVerify(ProviderUriBase, ProviderName, ConsumerName, FileUri, ProviderStateUriBase);
         }
 
         private void LaunchProviderStateHttpServer(string pactServiceUri)

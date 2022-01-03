@@ -13,6 +13,8 @@ namespace ProviderSuperHeroesConsumerSuperHeroesPact
 {
     public sealed class ProviderPactShould : IDisposable
     {
+        private const string ProviderName = "ProviderSuperHeroes";
+        private const string ConsumerName = "ConsumerSuperHeroes";
         private const string ProviderUriBase = "http://localhost:5000";
         private const string ProviderStateUriBase = "http://localhost:5002";
         private const string FileUri = @"..\..\..\..\pacts\consumersuperheroes-providersuperheroes.json";
@@ -31,7 +33,7 @@ namespace ProviderSuperHeroesConsumerSuperHeroesPact
         [Fact]
         public void Ensure_honors_pact_contract_with_consumer()
         {
-            PactVerify(ProviderUriBase, "ProviderSuperHeroes", "ConsumerSuperHeroes", 
+            PactVerify(ProviderUriBase, ProviderName, ConsumerName,
                 ProviderStateUriBase, FileUri);
         }
 
