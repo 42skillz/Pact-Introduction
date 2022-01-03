@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http;
 using Newtonsoft.Json;
 
-namespace ProviderSuperHeroesConsumerCharacterPact.Middleware
+namespace ProviderSuperHeroesConsumerCharactersPact.Middleware
 {
     public class ProviderStateMiddleware
     {

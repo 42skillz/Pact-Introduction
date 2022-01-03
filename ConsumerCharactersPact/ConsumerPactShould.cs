@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using ConsumerCharacter;
+using ConsumerCharacters;
 using Newtonsoft.Json;
 using NFluent;
 using PactNet.Matchers;
@@ -9,7 +9,7 @@ using PactNet.Mocks.MockHttpService;
 using PactNet.Mocks.MockHttpService.Models;
 using Xunit;
 
-namespace ConsumerCharacterPact
+namespace ConsumerCharactersPact
 {
     public class ConsumerPactShould : IClassFixture<ConsumerPactClassFixture>
     {
@@ -49,9 +49,9 @@ namespace ConsumerCharacterPact
                     Body = new Character(1, "Parker", "NY")
                 });
 
-            if (new ConsumerCharacter.ConsumerCharacter(_mockProviderServiceBaseUri)
+            if (new ConsumerCharacters.ConsumerCharacters(_mockProviderServiceBaseUri)
                 .GetCharacterById(characterId).GetAwaiter().GetResult().IsSuccessStatusCode)
-                AssertFirstCharacter(await AdaptCharacter(new ConsumerCharacter.ConsumerCharacter(_mockProviderServiceBaseUri)
+                AssertFirstCharacter(await AdaptCharacter(new ConsumerCharacters.ConsumerCharacters(_mockProviderServiceBaseUri)
                     .GetCharacterById(characterId).GetAwaiter().GetResult()));
 
             _mockProviderService.VerifyInteractions();
@@ -85,7 +85,7 @@ namespace ConsumerCharacterPact
                     )
                 });
 
-            var result = new ConsumerCharacter.ConsumerCharacter(_mockProviderServiceBaseUri)
+            var result = new ConsumerCharacters.ConsumerCharacters(_mockProviderServiceBaseUri)
                 .GetCharacters().GetAwaiter().GetResult();
 
             Check.That((int)result.StatusCode).IsEqualTo(200);

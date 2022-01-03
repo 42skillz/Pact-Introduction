@@ -1,4 +1,4 @@
-﻿namespace ConsumerCharacter
+﻿namespace ConsumerCharacters
 {
     public class Character
     {

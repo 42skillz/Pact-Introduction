@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace ConsumerSuperHero
+namespace ConsumerSuperHeroes
 {
     internal static class Program
     {
@@ -18,7 +18,7 @@ namespace ConsumerSuperHero
                 baseUri = args[1];
             }
 
-            var superHeroAdapter = new ConsumerSuperHero(baseUri);
+            var superHeroAdapter = new ConsumerSuperHeroes(baseUri);
 
             var response = await superHeroAdapter.GetSuperHeroById(superHeroId);
             var superHeroFan = await AdaptSuperHero(response);

@@ -29,7 +29,7 @@ namespace ProviderSuperHeroesConsumerSuperHeroPact
         [Fact]
         public void Ensure_honors_pact_contract_with_consumer()
         {
-            PactVerify(ProviderUriBase, "ProviderSuperHeroes", "ConsumerSuperHero", 
+            PactVerify(ProviderUriBase, "ProviderSuperHeroes", "ConsumerSuperHeroes", 
                 ProviderStateUriBase, @"..\..\..\..\pacts\consumersuperheroes-providersuperheroes.json");
         }
 

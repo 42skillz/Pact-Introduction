@@ -1,6 +1,6 @@
 {
   "consumer": {
-    "name": "ConsumerCharacter"
+    "name": "ConsumerCharacters"
   },
   "provider": {
     "name": "ProviderSuperHeroes"

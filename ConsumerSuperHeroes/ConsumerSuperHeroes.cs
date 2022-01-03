@@ -2,13 +2,13 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace ConsumerSuperHero
+namespace ConsumerSuperHeroes
 {
-    public class ConsumerSuperHero
+    public class ConsumerSuperHeroes
     {
         private readonly string _uriSuperHeroService;
 
-        public ConsumerSuperHero(string uriSuperHeroService)
+        public ConsumerSuperHeroes(string uriSuperHeroService)
         {
             _uriSuperHeroService = uriSuperHeroService;
         }

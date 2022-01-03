@@ -4,7 +4,7 @@ using Newtonsoft.Json.Serialization;
 using PactNet;
 using PactNet.Mocks.MockHttpService;
 
-namespace ConsumerCharacterPact
+namespace ConsumerCharactersPact
 {
     public class ConsumerPactClassFixture : IDisposable
     {
@@ -20,7 +20,7 @@ namespace ConsumerCharacterPact
 
             PactBuilder = new PactBuilder(pactConfig);
 
-            PactBuilder.ServiceConsumer("ConsumerCharacter")
+            PactBuilder.ServiceConsumer("ConsumerCharacters")
                 .HasPactWith("ProviderSuperHeroes");
 
             MockProviderService = PactBuilder.MockService(MockServerPort, new JsonSerializerSettings

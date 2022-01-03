@@ -1,14 +1,14 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using ConsumerSuperHero;
+using ConsumerSuperHeroes;
 using Newtonsoft.Json;
 using NFluent;
 using PactNet.Mocks.MockHttpService;
 using PactNet.Mocks.MockHttpService.Models;
 using Xunit;
 
-namespace ConsumerSuperHeroPact
+namespace ConsumerSuperHeroesPact
 {
     public class ConsumerPactShould : IClassFixture<ConsumerSuperHeroesPactClassFixture>
     {
@@ -49,7 +49,7 @@ namespace ConsumerSuperHeroPact
                         "Peter Parker is the secret identity of the character Spider-Man.")
                 });
 
-            var httpResponseMessage = new ConsumerSuperHero.ConsumerSuperHero(_mockProviderServiceBaseUri)
+            var httpResponseMessage = new ConsumerSuperHeroes.ConsumerSuperHeroes(_mockProviderServiceBaseUri)
                 .GetSuperHeroById(employeeId).GetAwaiter().GetResult();
 
             if (httpResponseMessage.IsSuccessStatusCode) AssertFirstSuperHero(await AdaptSuperHero(httpResponseMessage));
