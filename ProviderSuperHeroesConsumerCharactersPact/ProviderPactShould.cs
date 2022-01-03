@@ -13,15 +13,17 @@ namespace ProviderSuperHeroesConsumerCharactersPact
 {
     public sealed class ProviderPactShould : IDisposable
     {
-        private readonly ITestOutputHelper _outputHelper;
-
         private const string ProviderName = "ProviderSuperHeroes";
         private const string ConsumerName = "ConsumerCharacters";
         private const string ProviderUriBase = "http://localhost:5000";
         private const string ProviderStateUriBase = "http://localhost:5002";
-        private const string FileUri = "https://42skillz.pactflow.io/pacts/provider/ProviderSuperHeroes/consumer/ConsumerCharacters/latest";
+
+        private const string FileUri =
+            "https://42skillz.pactflow.io/pacts/provider/ProviderSuperHeroes/consumer/ConsumerCharacters/latest";
+
         private const string Token = "JjO7m8_Dm5DFCgUWsG8GAg";
-        
+        private readonly ITestOutputHelper _outputHelper;
+
         private IWebHost _webHost;
 
 
@@ -36,7 +38,7 @@ namespace ProviderSuperHeroesConsumerCharactersPact
         public void Ensure_honors_pact_contract_with_consumer()
         {
             PactVerify(ProviderUriBase, ProviderName, ConsumerName,
-                FileUri, 
+                FileUri,
                 ProviderStateUriBase, Token);
         }
 

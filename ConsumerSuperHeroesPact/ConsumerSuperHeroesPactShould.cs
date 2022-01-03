@@ -45,13 +45,15 @@ namespace ConsumerSuperHeroesPact
                         ["Content-Type"] = "application/json; charset=utf-8"
                     },
 
-                    Body = new FanOfSuperHero(1, "Peter", "Parker", "Peter Parker is the secret identity of the character Spider-Man.")
+                    Body = new FanOfSuperHero(1, "Peter", "Parker",
+                        "Peter Parker is the secret identity of the character Spider-Man.")
                 });
 
             var httpResponseMessage = await new ConsumerSuperHeroes.ConsumerSuperHeroes(_mockProviderServiceBaseUri)
                 .GetSuperHeroById(superHeroId);
 
-            if (httpResponseMessage.IsSuccessStatusCode) AssertFirstSuperHero(await AdaptSuperHero(httpResponseMessage));
+            if (httpResponseMessage.IsSuccessStatusCode)
+                AssertFirstSuperHero(await AdaptSuperHero(httpResponseMessage));
 
             _mockProviderService.VerifyInteractions();
         }
@@ -62,7 +64,8 @@ namespace ConsumerSuperHeroesPact
             Check.That(fanOfSuperHero.Id).IsEqualTo(fanOfSuperHero.Id);
             Check.That(fanOfSuperHero.FirstName).IsEqualTo("Peter");
             Check.That(fanOfSuperHero.Name).IsEqualTo("Parker");
-            Check.That(fanOfSuperHero.Summary).IsEqualTo("Peter Parker is the secret identity of the character Spider-Man.");
+            Check.That(fanOfSuperHero.Summary)
+                .IsEqualTo("Peter Parker is the secret identity of the character Spider-Man.");
         }
 
         private static async Task<FanOfSuperHero> AdaptSuperHero(HttpResponseMessage httpResponseMessage)
