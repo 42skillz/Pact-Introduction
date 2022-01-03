@@ -14,22 +14,15 @@ namespace ProviderSuperHeroesConsumerSuperHeroPact
     public sealed class ProviderPactShould : IDisposable
     {
         private readonly ITestOutputHelper _outputHelper;
-        private readonly string _pactServiceUri;
         private readonly string _providerUri;
-        private readonly IWebHost _webHost;
+        private IWebHost _webHost;
 
         public ProviderPactShould(ITestOutputHelper output)
         {
             _outputHelper = output;
             _providerUri = "http://localhost:5000";
-            _pactServiceUri = "http://localhost:5002";
 
-            _webHost = WebHost.CreateDefaultBuilder()
-                .UseUrls(_pactServiceUri)
-                .UseStartup<TestStartup>()
-                .Build();
-
-            _webHost.Start();
+            LaunchProviderStateHttpServer("http://localhost:5002");
         }
 
         [Fact]
@@ -37,6 +30,16 @@ namespace ProviderSuperHeroesConsumerSuperHeroPact
         {
             PactVerify("ProviderSuperHeroes", "ConsumerSuperHeroes", 
                 "JjO7m8_Dm5DFCgUWsG8GAg", "https://42skillz.pactflow.io/pacts/provider/ProviderSuperHeroes/consumer/ConsumerSuperHeroes/latest");
+        }
+
+        private void LaunchProviderStateHttpServer(string pactServiceUri)
+        {
+            _webHost = WebHost.CreateDefaultBuilder()
+                .UseUrls(pactServiceUri)
+                .UseStartup<TestStartup>()
+                .Build();
+
+            _webHost.Start();
         }
 
         private void PactVerify(string providerName, string consumerName, string token, string fileUri)
@@ -58,7 +61,7 @@ namespace ProviderSuperHeroesConsumerSuperHeroPact
             var pactVerifier = new PactVerifier(config);
 
             pactVerifier
-                .ProviderState($"{_pactServiceUri}/provider-states")
+                .ProviderState($"{"http://localhost:5002"}/provider-states")
                 .ServiceProvider(providerName, _providerUri)
                 .HonoursPactWith(consumerName)
                 .PactUri(fileUri, pactUriOptions)
