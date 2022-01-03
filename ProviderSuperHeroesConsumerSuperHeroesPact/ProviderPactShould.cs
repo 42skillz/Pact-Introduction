@@ -4,17 +4,19 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using PactNet;
 using PactNet.Infrastructure.Outputters;
-using ProviderSuperHeroesConsumerSuperHeroPact.Middleware;
-using ProviderSuperHeroesConsumerSuperHeroPact.XUnitHelpers;
+using ProviderSuperHeroesConsumerSuperHeroesPact.Middleware;
+using ProviderSuperHeroesConsumerSuperHeroesPact.XUnitHelpers;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace ProviderSuperHeroesConsumerSuperHeroPact
+namespace ProviderSuperHeroesConsumerSuperHeroesPact
 {
     public sealed class ProviderPactShould : IDisposable
     {
         private const string ProviderUriBase = "http://localhost:5000";
         private const string ProviderStateUriBase = "http://localhost:5002";
+        private const string FileUri = @"..\..\..\..\pacts\consumersuperheroes-providersuperheroes.json";
+
         private readonly ITestOutputHelper _outputHelper;
         private IWebHost _webHost;
 
@@ -30,7 +32,7 @@ namespace ProviderSuperHeroesConsumerSuperHeroPact
         public void Ensure_honors_pact_contract_with_consumer()
         {
             PactVerify(ProviderUriBase, "ProviderSuperHeroes", "ConsumerSuperHeroes", 
-                ProviderStateUriBase, @"..\..\..\..\pacts\consumersuperheroes-providersuperheroes.json");
+                ProviderStateUriBase, FileUri);
         }
 
         private void LaunchProviderStateHttpServer(string pactServiceUri)
