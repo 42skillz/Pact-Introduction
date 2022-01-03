@@ -18,7 +18,7 @@ namespace ConsumerSuperHero
                 baseUri = args[1];
             }
 
-            var consumerSuperHero = new ConsumerSuperHero(baseUri);
+            var consumerSuperHero = new ConsumerSuperHeroes(baseUri);
 
             // Retrieve one superHeroFan
             var superHeroFan = await AdaptSuperHero(await consumerSuperHero.GetSuperHeroById(superHeroId));

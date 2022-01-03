@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace ConsumerCharacter
+namespace ConsumerCharacters
 {
     internal static class Program
     {
@@ -20,7 +20,7 @@ namespace ConsumerCharacter
                 baseUri = args[1];
             }
 
-            var consumerCharacter = new ConsumerCharacter(baseUri);
+            var consumerCharacter = new ConsumerCharacters(baseUri);
 
             // Retrieve one character
             var character = await AdaptCharacter(await consumerCharacter.GetCharacterById(characterId));

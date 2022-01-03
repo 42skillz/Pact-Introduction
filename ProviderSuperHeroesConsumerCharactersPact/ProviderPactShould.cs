@@ -4,12 +4,12 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using PactNet;
 using PactNet.Infrastructure.Outputters;
-using ProviderSuperHeroesConsumerCharacterPact.Middleware;
-using ProviderSuperHeroesConsumerCharacterPact.XUnitHelpers;
+using ProviderSuperHeroesConsumerCharactersPact.Middleware;
+using ProviderSuperHeroesConsumerCharactersPact.XUnitHelpers;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace ProviderSuperHeroesConsumerCharacterPact
+namespace ProviderSuperHeroesConsumerCharactersPact
 {
     public sealed class ProviderPactShould : IDisposable
     {
@@ -29,8 +29,8 @@ namespace ProviderSuperHeroesConsumerCharacterPact
         [Fact]
         public void Ensure_honors_pact_contract_with_consumer()
         {
-            PactVerify(ProviderUriBase, "ProviderSuperHeroes", "ConsumerCharacter",
-                "https://42skillz.pactflow.io/pacts/provider/ProviderSuperHeroes/consumer/ConsumerCharacter/latest", 
+            PactVerify(ProviderUriBase, "ProviderSuperHeroes", "ConsumerCharacters",
+                "https://42skillz.pactflow.io/pacts/provider/ProviderSuperHeroes/consumer/ConsumerCharacters/latest", 
                 ProviderStateUriBase, "JjO7m8_Dm5DFCgUWsG8GAg");
         }
 

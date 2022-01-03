@@ -8,7 +8,7 @@ using PactNet.Mocks.MockHttpService;
 using PactNet.Mocks.MockHttpService.Models;
 using Xunit;
 
-namespace ConsumerSuperHeroPact
+namespace ConsumerSuperHeroesPact
 {
     public class ConsumerPactShould : IClassFixture<ConsumerSuperHeroesPactClassFixture>
     {
@@ -48,7 +48,7 @@ namespace ConsumerSuperHeroPact
                     Body = new FanOfSuperHero(1, "Peter", "Parker", "Peter Parker is the secret identity of the character Spider-Man.")
                 });
 
-            var httpResponseMessage = await new ConsumerSuperHero.ConsumerSuperHero(_mockProviderServiceBaseUri)
+            var httpResponseMessage = await new ConsumerSuperHero.ConsumerSuperHeroes(_mockProviderServiceBaseUri)
                 .GetSuperHeroById(superHeroId);
 
             if (httpResponseMessage.IsSuccessStatusCode) AssertFirstSuperHero(await AdaptSuperHero(httpResponseMessage));
