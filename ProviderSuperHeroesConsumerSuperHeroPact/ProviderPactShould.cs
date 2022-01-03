@@ -35,6 +35,12 @@ namespace ProviderSuperHeroesConsumerSuperHeroPact
         [Fact]
         public void Ensure_honors_pact_contract_with_consumer()
         {
+            PactVerify("ProviderSuperHeroes", "ConsumerSuperHeroes", 
+                "JjO7m8_Dm5DFCgUWsG8GAg", "https://42skillz.pactflow.io/pacts/provider/ProviderSuperHeroes/consumer/ConsumerSuperHeroes/latest");
+        }
+
+        private void PactVerify(string providerName, string consumerName, string token, string fileUri)
+        {
             var config = new PactVerifierConfig
             {
                 ProviderVersion = "1.0.0",
@@ -46,16 +52,16 @@ namespace ProviderSuperHeroesConsumerSuperHeroPact
                 Verbose = true
             };
 
-            IPactVerifier pactVerifier = new PactVerifier(config);
             var pactUriOptions = new PactUriOptions()
-                .SetBearerAuthentication("JjO7m8_Dm5DFCgUWsG8GAg");
+                .SetBearerAuthentication(token);
 
-            pactVerifier.ProviderState($"{_pactServiceUri}/provider-states")
-                .ServiceProvider("ProviderSuperHeroes", _providerUri)
-                .HonoursPactWith("ConsumerSuperHeroes")
-                .PactUri(
-                    "https://42skillz.pactflow.io/pacts/provider/ProviderSuperHeroes/consumer/ConsumerSuperHeroes/latest",
-                    pactUriOptions)
+            var pactVerifier = new PactVerifier(config);
+
+            pactVerifier
+                .ProviderState($"{_pactServiceUri}/provider-states")
+                .ServiceProvider(providerName, _providerUri)
+                .HonoursPactWith(consumerName)
+                .PactUri(fileUri, pactUriOptions)
                 .Verify();
         }
 
