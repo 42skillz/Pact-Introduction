@@ -14,22 +14,24 @@ namespace ProviderSuperHeroesConsumerCharacterPact
     public sealed class ProviderPactShould : IDisposable
     {
         private readonly ITestOutputHelper _outputHelper;
-        private readonly string _providerUri;
+        private const string ProviderUriBase = "http://localhost:5000";
+        private const string ProviderStateUriBase = "http://localhost:5002";
         private IWebHost _webHost;
+
 
         public ProviderPactShould(ITestOutputHelper output)
         {
             _outputHelper = output;
-            _providerUri = "http://localhost:5000";
 
-            LaunchProviderStateHttpServer("http://localhost:5002");
+            LaunchProviderStateHttpServer(ProviderStateUriBase);
         }
 
         [Fact]
         public void Ensure_honors_pact_contract_with_consumer()
         {
-            PactVerify("ProviderSuperHeroes", "ConsumerCharacter", 
-                "JjO7m8_Dm5DFCgUWsG8GAg", "https://42skillz.pactflow.io/pacts/provider/ProviderSuperHeroes/consumer/ConsumerCharacter/latest");
+            PactVerify(ProviderUriBase, "ProviderSuperHeroes", "ConsumerCharacter",
+                "https://42skillz.pactflow.io/pacts/provider/ProviderSuperHeroes/consumer/ConsumerCharacter/latest", 
+                ProviderStateUriBase, "JjO7m8_Dm5DFCgUWsG8GAg");
         }
 
         private void LaunchProviderStateHttpServer(string pactServiceUri)
@@ -42,7 +44,8 @@ namespace ProviderSuperHeroesConsumerCharacterPact
             _webHost.Start();
         }
 
-        private void PactVerify(string providerName, string consumerName, string token, string fileUri)
+        private void PactVerify(string providerUriBase, string providerName, string consumerName,
+            string fileUri, string providerStateUriBase, string token)
         {
             var config = new PactVerifierConfig
             {
@@ -61,8 +64,8 @@ namespace ProviderSuperHeroesConsumerCharacterPact
             var pactVerifier = new PactVerifier(config);
 
             pactVerifier
-                .ProviderState($"{"http://localhost:5002"}/provider-states")
-                .ServiceProvider(providerName, _providerUri)
+                .ProviderState($"{providerStateUriBase}/provider-states")
+                .ServiceProvider(providerName, providerUriBase)
                 .HonoursPactWith(consumerName)
                 .PactUri(fileUri, pactUriOptions)
                 .Verify();
