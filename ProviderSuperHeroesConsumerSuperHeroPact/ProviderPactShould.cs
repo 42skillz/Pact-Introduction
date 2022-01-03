@@ -16,7 +16,7 @@ namespace ProviderSuperHeroesConsumerSuperHeroPact
         private readonly ITestOutputHelper _outputHelper;
         private readonly string _pactServiceUri;
         private readonly string _providerUri;
-        private readonly IWebHost _webHost;
+        private IWebHost _webHost;
 
         public ProviderPactShould(ITestOutputHelper output)
         {
@@ -24,7 +24,20 @@ namespace ProviderSuperHeroesConsumerSuperHeroPact
             _providerUri = "http://localhost:5000";
             _pactServiceUri = "http://localhost:5002";
 
-            _webHost = WebHost.CreateDefaultBuilder()
+            LaunchProviderStateHttpServer();
+        }
+
+        [Fact]
+        public void Ensure_honors_pact_contract_with_consumer()
+        {
+            PactVerify("ProviderSuperHeroes", "ConsumerSuperHero", 
+                @"..\..\..\..\pacts\consumersuperheroes-providersuperheroes.json");
+        }
+
+        private void LaunchProviderStateHttpServer()
+        {
+            _webHost = WebHost
+                .CreateDefaultBuilder()
                 .UseUrls(_pactServiceUri)
                 .UseStartup<TestStartup>()
                 .Build();
@@ -32,8 +45,7 @@ namespace ProviderSuperHeroesConsumerSuperHeroPact
             _webHost.Start();
         }
 
-        [Fact]
-        public void Ensure_honors_pact_contract_with_consumer()
+        private void PactVerify(string providerName, string consumerName, string fileUri)
         {
             var config = new PactVerifierConfig
             {
@@ -44,11 +56,11 @@ namespace ProviderSuperHeroesConsumerSuperHeroPact
                 Verbose = true
             };
 
-            IPactVerifier pactVerifier = new PactVerifier(config);
+            var pactVerifier = new PactVerifier(config);
             pactVerifier.ProviderState($"{_pactServiceUri}/provider-states")
-                .ServiceProvider("ProviderSuperHeroes", _providerUri)
-                .HonoursPactWith("ConsumerSuperHero")
-                .PactUri(@"..\..\..\..\pacts\consumersuperheroes-providersuperheroes.json")
+                .ServiceProvider(providerName, _providerUri)
+                .HonoursPactWith(consumerName)
+                .PactUri(fileUri)
                 .Verify();
         }
 

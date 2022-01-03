@@ -16,7 +16,7 @@ namespace ProviderSuperHeroesConsumerCharacterPact
         private readonly ITestOutputHelper _outputHelper;
         private readonly string _pactServiceUri;
         private readonly string _providerUri;
-        private readonly IWebHost _webHost;
+        private IWebHost _webHost;
 
         public ProviderPactShould(ITestOutputHelper output)
         {
@@ -24,6 +24,18 @@ namespace ProviderSuperHeroesConsumerCharacterPact
             _providerUri = "http://localhost:5000";
             _pactServiceUri = "http://localhost:5002";
 
+            LaunchProviderStateHttpServer();
+        }
+
+        [Fact]
+        public void Ensure_honors_pact_contract_with_consumer()
+        {
+            PactVerify("ProviderSuperHeroes", "ConsumerCharacter", 
+                @"..\..\..\..\pacts\consumercharacter-providersuperheroes.json");
+        }
+
+        private void LaunchProviderStateHttpServer()
+        {
             _webHost = WebHost.CreateDefaultBuilder()
                 .UseUrls(_pactServiceUri)
                 .UseStartup<TestStartup>()
@@ -32,10 +44,8 @@ namespace ProviderSuperHeroesConsumerCharacterPact
             _webHost.Start();
         }
 
-        [Fact]
-        public void Ensure_honors_pact_contract_with_consumer()
+        private void PactVerify(string providerName, string consumerName, string fileUri)
         {
-            // Arrange
             var config = new PactVerifierConfig
             {
                 Outputters = new List<IOutput>
@@ -45,12 +55,13 @@ namespace ProviderSuperHeroesConsumerCharacterPact
                 Verbose = true
             };
 
-            //Act / Assert
-            IPactVerifier pactVerifier = new PactVerifier(config);
-            pactVerifier.ProviderState($"{_pactServiceUri}/provider-states")
-                .ServiceProvider("ProviderSuperHeroes", _providerUri)
-                .HonoursPactWith("ConsumerCharacter")
-                .PactUri(@"..\..\..\..\pacts\consumercharacter-providersuperheroes.json")
+            var pactVerifier = new PactVerifier(config);
+
+            pactVerifier
+                .ProviderState($"{_pactServiceUri}/provider-states")
+                .ServiceProvider(providerName, _providerUri)
+                .HonoursPactWith(consumerName)
+                .PactUri(fileUri)
                 .Verify();
         }
 
