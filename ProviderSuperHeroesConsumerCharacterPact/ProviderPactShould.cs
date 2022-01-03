@@ -15,20 +15,20 @@ namespace ProviderSuperHeroesConsumerCharacterPact
     {
         private readonly ITestOutputHelper _outputHelper;
         private const string ProviderUriBase = "http://localhost:5000";
-        private const string UriBaseProviderState = "http://localhost:5002";
+        private const string ProviderStateUriBase = "http://localhost:5002";
         private IWebHost _webHost;
 
         public ProviderPactShould(ITestOutputHelper output)
         {
             _outputHelper = output;
 
-            LaunchProviderStateHttpServer(UriBaseProviderState);
+            LaunchProviderStateHttpServer(ProviderStateUriBase);
         }
 
         [Fact]
         public void Ensure_honors_pact_contract_with_consumer()
         {
-            PactVerify(ProviderUriBase, "ProviderSuperHeroes", "ConsumerCharacter", @"..\..\..\..\pacts\consumercharacter-providersuperheroes.json", UriBaseProviderState);
+            PactVerify(ProviderUriBase, "ProviderSuperHeroes", "ConsumerCharacter", @"..\..\..\..\pacts\consumercharacter-providersuperheroes.json", ProviderStateUriBase);
         }
 
         private void LaunchProviderStateHttpServer(string pactServiceUri)
