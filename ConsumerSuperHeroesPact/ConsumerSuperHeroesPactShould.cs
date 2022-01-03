@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using ConsumerSuperHero;
+using ConsumerSuperHeroes;
 using Newtonsoft.Json;
 using NFluent;
 using PactNet.Mocks.MockHttpService;
@@ -48,7 +48,7 @@ namespace ConsumerSuperHeroesPact
                     Body = new FanOfSuperHero(1, "Peter", "Parker", "Peter Parker is the secret identity of the character Spider-Man.")
                 });
 
-            var httpResponseMessage = await new ConsumerSuperHero.ConsumerSuperHeroes(_mockProviderServiceBaseUri)
+            var httpResponseMessage = await new ConsumerSuperHeroes.ConsumerSuperHeroes(_mockProviderServiceBaseUri)
                 .GetSuperHeroById(superHeroId);
 
             if (httpResponseMessage.IsSuccessStatusCode) AssertFirstSuperHero(await AdaptSuperHero(httpResponseMessage));

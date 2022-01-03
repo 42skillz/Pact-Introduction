@@ -4,18 +4,24 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using PactNet;
 using PactNet.Infrastructure.Outputters;
-using ProviderSuperHeroesConsumerSuperHeroPact.Middleware;
-using ProviderSuperHeroesConsumerSuperHeroPact.XUnitHelpers;
+using ProviderSuperHeroesConsumerSuperHeroesPact.Middleware;
+using ProviderSuperHeroesConsumerSuperHeroesPact.XUnitHelpers;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace ProviderSuperHeroesConsumerSuperHeroPact
+namespace ProviderSuperHeroesConsumerSuperHeroesPact
 {
     public sealed class ProviderPactShould : IDisposable
     {
         private readonly ITestOutputHelper _outputHelper;
+
+        private const string ProviderName = "ProviderSuperHeroes";
+        private const string ConsumerName = "ConsumerSuperHeroes";
         private const string ProviderUriBase = "http://localhost:5000";
         private const string ProviderStateUriBase = "http://localhost:5002";
+        private const string FileUri = "https://42skillz.pactflow.io/pacts/provider/ProviderSuperHeroes/consumer/ConsumerSuperHeroes/latest";
+        private const string Token = "JjO7m8_Dm5DFCgUWsG8GAg";
+
         private IWebHost _webHost;
 
 
@@ -29,9 +35,8 @@ namespace ProviderSuperHeroesConsumerSuperHeroPact
         [Fact]
         public void Ensure_honors_pact_contract_with_consumer()
         {
-            PactVerify(ProviderUriBase, "ProviderSuperHeroes", "ConsumerSuperHeroes", 
-                "https://42skillz.pactflow.io/pacts/provider/ProviderSuperHeroes/consumer/ConsumerSuperHeroes/latest", 
-                ProviderStateUriBase, "JjO7m8_Dm5DFCgUWsG8GAg");
+            PactVerify(ProviderUriBase, ProviderName, ConsumerName, FileUri, 
+                ProviderStateUriBase, Token);
         }
 
         private void LaunchProviderStateHttpServer(string pactServiceUri)

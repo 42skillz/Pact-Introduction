@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ProviderSuperHeroesConsumerSuperHeroPact.Middleware
+namespace ProviderSuperHeroesConsumerSuperHeroesPact.Middleware
 {
     public class TestStartup
     {

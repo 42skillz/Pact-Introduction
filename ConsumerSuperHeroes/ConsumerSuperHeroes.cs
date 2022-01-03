@@ -2,7 +2,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace ConsumerSuperHero
+namespace ConsumerSuperHeroes
 {
     public class ConsumerSuperHeroes
     {

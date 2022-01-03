@@ -1,4 +1,4 @@
-﻿namespace ConsumerSuperHero
+﻿namespace ConsumerSuperHeroes
 {
     public class FanOfSuperHero
     {
