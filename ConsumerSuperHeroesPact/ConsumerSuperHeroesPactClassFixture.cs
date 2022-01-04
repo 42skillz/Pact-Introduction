@@ -8,20 +8,26 @@ namespace ConsumerSuperHeroesPact
 {
     public class ConsumerSuperHeroesPactClassFixture : IDisposable
     {
+        private const string ConsumerName = "ConsumerSuperHeroes";
+        private const string ProviderName = "ProviderSuperHeroes";
+        private const string SpecificationVersion = "2.0.0";
+        private const string PactDir = @"..\..\..\..\pacts\";
+        private const string PactLogs = @"..\..\..\..\pact_logs";
+
         public ConsumerSuperHeroesPactClassFixture()
         {
             // Using Spec version 2.0.0 more details at https://goo.gl/UrBSRc
             var pactConfig = new PactConfig
             {
-                SpecificationVersion = "2.0.0",
-                PactDir = @"..\..\..\..\pacts\",
-                LogDir = @"..\..\..\..\pact_logs"
+                SpecificationVersion = SpecificationVersion,
+                PactDir = PactDir,
+                LogDir = PactLogs
             };
 
             PactBuilder = new PactBuilder(pactConfig);
 
-            PactBuilder.ServiceConsumer("ConsumerSuperHeroes")
-                .HasPactWith("ProviderSuperHeroes");
+            PactBuilder.ServiceConsumer(ConsumerName)
+                .HasPactWith(ProviderName);
 
             MockProviderService = PactBuilder.MockService(MockServerPort, new JsonSerializerSettings
             {
