@@ -26,7 +26,7 @@ namespace ConsumerCharactersPact
         [Fact]
         public async Task Validate_one_character_by_id()
         {
-            const int superHeroId = 1;
+            const int characterId = 1;
 
             _mockProviderService.Given("There are characters")
                 .UponReceiving("One character")
@@ -34,7 +34,7 @@ namespace ConsumerCharactersPact
                 .With(new ProviderServiceRequest
                 {
                     Method = HttpVerb.Get,
-                    Path = $"/api/superheroes/{superHeroId}"
+                    Path = $"/api/superheroes/{characterId}"
                 })
                 // Then
                 .WillRespondWith(new ProviderServiceResponse
@@ -49,11 +49,14 @@ namespace ConsumerCharactersPact
                     Body = new Character(1, "Parker", "NY")
                 });
 
-            if (new ConsumerCharacters.ConsumerCharacters(_mockProviderServiceBaseUri)
-                .GetCharacterById(superHeroId).GetAwaiter().GetResult().IsSuccessStatusCode)
-                AssertFirstCharacter(await AdaptCharacter(
-                    new ConsumerCharacters.ConsumerCharacters(_mockProviderServiceBaseUri)
-                        .GetCharacterById(superHeroId).GetAwaiter().GetResult()));
+            var consumerCharacters = new ConsumerCharacters.ConsumerCharacters(_mockProviderServiceBaseUri);
+
+            var message = await consumerCharacters.GetCharacterById(characterId);
+
+            if (message.IsSuccessStatusCode)
+            {
+                AssertFirstCharacter(await AdaptCharacter(message));
+            }
 
             _mockProviderService.VerifyInteractions();
         }

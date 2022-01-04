@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -25,12 +24,17 @@ namespace ConsumerCharacters
             // Retrieve one character
             var character = await AdaptCharacter(await consumerCharacter.GetCharacterById(characterId));
 
-            Console.WriteLine($"Retrieve character: ID: {character.Id} Name: {character.Name} City: {character.City}.");
+            Console.WriteLine($"Retrieve character: Id {character.Id} Name {character.Name} City {character.City}.");
 
             // Retrieve all characters
             var characters = await AdaptCharacters(await consumerCharacter.GetCharacters());
-
-            Console.WriteLine($"Retrieve all characters: {string.Join(", ", characters.Select(e => e.Name))}.");
+            Console.WriteLine($"\nRetrieve all characters ({characters.Count})");
+            foreach (var item in characters)
+            {
+                Console.WriteLine($"Id {item.Id}");
+                Console.WriteLine($"Name {item.Name}");
+                Console.WriteLine($"City {item.City}\n");
+            }
         }
 
         private static async Task<Character> AdaptCharacter(HttpResponseMessage response)
