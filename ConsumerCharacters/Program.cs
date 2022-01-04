@@ -24,7 +24,7 @@ namespace ConsumerCharacters
             // Retrieve one character
             var character = await AdaptCharacter(await consumerCharacter.GetCharacterById(characterId));
 
-            Console.WriteLine($"Retrieve character: Id {character.Id} Name {character.Name} City {character.City}.");
+            Console.WriteLine($"Retrieve Character({character.Id}) Name {character.Name}, City {character.City}.");
 
             // Retrieve all characters
             var characters = await AdaptCharacters(await consumerCharacter.GetCharacters());
