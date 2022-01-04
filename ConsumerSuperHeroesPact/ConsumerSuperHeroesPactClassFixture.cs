@@ -16,7 +16,7 @@ namespace ConsumerSuperHeroesPact
         private const string Token = "JjO7m8_Dm5DFCgUWsG8GAg";
         private const string PathToSslCaFile = @"..\..\..\..\ca.crt";
         private const string BrokerBaseUri = "https://42skillz.pactflow.io";
-        private const string PactFileUri = @"..\..\..\..\pacts\consumersuperheroes-providersuperheroes.json";
+        private const string PactFile = "consumersuperheroes-providersuperheroes.json";
         private const string ConsumerVersion = "1.0.2";
         private const string ConsumerVersionTag = "master";
 
@@ -60,21 +60,21 @@ namespace ConsumerSuperHeroesPact
                     // This will save the pact file once finished.
                     PactBuilder.Build();
 
-                    PublishToBroker(Token, PathToSslCaFile, BrokerBaseUri, PactFileUri, ConsumerVersion, ConsumerVersionTag);
+                    PublishToBroker(Token, PathToSslCaFile, BrokerBaseUri, PactFile, ConsumerVersion, ConsumerVersionTag);
                 }
 
                 _disposedValue = true;
             }
         }
 
-        private static void PublishToBroker(string token, string pathToSslCaFile, string brokenBaseUri, string pactFileUri, string consumerVersion, string tag)
+        private static void PublishToBroker(string token, string pathToSslCaFile, string brokenBaseUri, string pactFile, string consumerVersion, string tag)
         {
             var brokerUriOptions =
                 new PactUriOptions(token).SetSslCaFilePath(pathToSslCaFile);
             var pactPublisher = new PactPublisher(brokenBaseUri, brokerUriOptions);
-            pactPublisher.PublishToBroker(pactFileUri,
+            pactPublisher.PublishToBroker($"{PactDir}{pactFile}",
                 consumerVersion,
-                new[] { tag });
+                new[] { tag, "uat" });
         }
 
         // This code added to correctly implement the disposable pattern.

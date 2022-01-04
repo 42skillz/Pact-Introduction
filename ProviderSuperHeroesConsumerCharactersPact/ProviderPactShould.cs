@@ -17,10 +17,7 @@ namespace ProviderSuperHeroesConsumerCharactersPact
         private const string ConsumerName = "ConsumerCharacters";
         private const string ProviderUriBase = "http://localhost:5000";
         private const string ProviderStateUriBase = "http://localhost:5002";
-
-        private const string FileUri =
-            "https://42skillz.pactflow.io/pacts/provider/ProviderSuperHeroes/consumer/ConsumerCharacters/latest";
-
+        private const string BrokerBaseUri = "https://42skillz.pactflow.io";
         private const string Token = "JjO7m8_Dm5DFCgUWsG8GAg";
         private readonly ITestOutputHelper _outputHelper;
 
@@ -30,7 +27,6 @@ namespace ProviderSuperHeroesConsumerCharactersPact
         public ProviderPactShould(ITestOutputHelper output)
         {
             _outputHelper = output;
-
             LaunchProviderStateHttpServer(ProviderStateUriBase);
         }
 
@@ -38,8 +34,7 @@ namespace ProviderSuperHeroesConsumerCharactersPact
         public void Ensure_honors_pact_contract_with_consumer()
         {
             PactVerify(ProviderUriBase, ProviderName, ConsumerName,
-                FileUri,
-                ProviderStateUriBase, Token);
+                BrokerBaseUri, ProviderStateUriBase, Token);
         }
 
         private void LaunchProviderStateHttpServer(string pactServiceUri)
@@ -53,17 +48,17 @@ namespace ProviderSuperHeroesConsumerCharactersPact
         }
 
         private void PactVerify(string providerUriBase, string providerName, string consumerName,
-            string fileUri, string providerStateUriBase, string token)
+            string brokerBaseUri, string providerStateUriBase, string token)
         {
             var config = new PactVerifierConfig
             {
-                ProviderVersion = "1.0.0",
+                ProviderVersion = "2.0.1",
                 PublishVerificationResults = true,
                 Outputters = new List<IOutput>
                 {
                     new XUnitOutput(_outputHelper)
                 },
-                Verbose = true
+                //Verbose = true
             };
 
             var pactUriOptions = new PactUriOptions()
@@ -75,7 +70,14 @@ namespace ProviderSuperHeroesConsumerCharactersPact
                 .ProviderState($"{providerStateUriBase}/provider-states")
                 .ServiceProvider(providerName, providerUriBase)
                 .HonoursPactWith(consumerName)
-                .PactUri(fileUri, pactUriOptions)
+                .PactBroker(brokerBaseUri, pactUriOptions, false,
+                    new[] { "master", "uat" }, new[] { "master", "uat" },
+                    new List<VersionTagSelector>
+                    {
+                        new VersionTagSelector("uat", latest: true),
+                        new VersionTagSelector("test", latest: true),
+                        new VersionTagSelector("production")
+                    })
                 .Verify();
         }
 
