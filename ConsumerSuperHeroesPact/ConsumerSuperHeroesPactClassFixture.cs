@@ -13,6 +13,12 @@ namespace ConsumerSuperHeroesPact
         private const string SpecificationVersion = "2.0.0";
         private const string PactDir = @"..\..\..\..\pacts\";
         private const string PactLogs = @"..\..\..\..\pact_logs";
+        private const string Token = "JjO7m8_Dm5DFCgUWsG8GAg";
+        private const string PathToSslCaFile = @"..\..\..\..\ca.crt";
+        private const string BrokerBaseUri = "https://42skillz.pactflow.io";
+        private const string PactFileUri = @"..\..\..\..\pacts\consumersuperheroes-providersuperheroes.json";
+        private const string ConsumerVersion = "1.0.2";
+        private const string ConsumerVersionTag = "master";
 
         public ConsumerSuperHeroesPactClassFixture()
         {
@@ -54,21 +60,21 @@ namespace ConsumerSuperHeroesPact
                     // This will save the pact file once finished.
                     PactBuilder.Build();
 
-                    PublishToBroker();
+                    PublishToBroker(Token, PathToSslCaFile, BrokerBaseUri, PactFileUri, ConsumerVersion, ConsumerVersionTag);
                 }
 
                 _disposedValue = true;
             }
         }
 
-        private static void PublishToBroker()
+        private static void PublishToBroker(string token, string pathToSslCaFile, string brokenBaseUri, string pactFileUri, string consumerVersion, string tag)
         {
             var brokerUriOptions =
-                new PactUriOptions("JjO7m8_Dm5DFCgUWsG8GAg").SetSslCaFilePath("c:\\dev\\ca.crt");
-            var pactPublisher = new PactPublisher("https://42skillz.pactflow.io", brokerUriOptions);
-            pactPublisher.PublishToBroker(@"..\..\..\..\pacts\consumersuperheroes-providersuperheroes.json",
-                "1.0.2",
-                new[] { "master" });
+                new PactUriOptions(token).SetSslCaFilePath(pathToSslCaFile);
+            var pactPublisher = new PactPublisher(brokenBaseUri, brokerUriOptions);
+            pactPublisher.PublishToBroker(pactFileUri,
+                consumerVersion,
+                new[] { tag });
         }
 
         // This code added to correctly implement the disposable pattern.
