@@ -74,6 +74,7 @@ namespace ProviderSuperHeroesConsumerCharactersPact
                     new[] { "master", "uat" }, new[] { "master", "uat" },
                     new List<VersionTagSelector>
                     {
+                        new VersionTagSelector("master", latest: true),
                         new VersionTagSelector("uat", latest: true),
                         new VersionTagSelector("test", latest: true),
                         new VersionTagSelector("production")

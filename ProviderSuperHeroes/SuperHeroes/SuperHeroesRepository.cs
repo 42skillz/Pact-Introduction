@@ -5,7 +5,7 @@ namespace ProviderSuperHeroes.SuperHeroes
 {
     public class SuperHeroesRepository
     {
-        private readonly List<SuperHero> _employees = new List<SuperHero>
+        private readonly List<SuperHero> _superHeroes = new List<SuperHero>
         {
             new SuperHero
             {
@@ -69,12 +69,12 @@ namespace ProviderSuperHeroes.SuperHeroes
 
         public SuperHero GetById(int id)
         {
-            return _employees.FirstOrDefault(e => e.Id == id);
+            return _superHeroes.FirstOrDefault(e => e.Id == id);
         }
 
         public IEnumerable<SuperHero> GetAll()
         {
-            return _employees;
+            return _superHeroes;
         }
     }
 }
