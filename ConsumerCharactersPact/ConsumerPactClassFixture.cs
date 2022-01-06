@@ -17,7 +17,7 @@ namespace ConsumerCharactersPact
         private const string PathToSslCaFile = @"..\..\..\..\ca.crt";
         private const string BrokerBaseUri = "https://42skillz.pactflow.io";
         private const string PactFile = "consumercharacters-providersuperheroes.json";
-        private const string ConsumerVersion = "2.0.2";
+        private const string ConsumerVersion = "2.0.3";
         private const string ConsumerVersionTag = "master";
 
         public ConsumerPactClassFixture()

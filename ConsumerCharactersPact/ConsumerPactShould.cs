@@ -46,7 +46,11 @@ namespace ConsumerCharactersPact
                         ["Content-Type"] = "application/json; charset=utf-8"
                     },
 
-                    Body = new Character(1, "Parker", "NY")
+                    Body = Match.Type(new Character { 
+                        Id = 1,
+                        Name = "Parker",
+                        City = "NY"
+                        })
                 });
 
             var consumerCharacters = new ConsumerCharacters.ConsumerCharacters(_mockProviderServiceBaseUri);

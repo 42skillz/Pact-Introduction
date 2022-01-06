@@ -22,6 +22,11 @@
           "id": 1,
           "name": "Parker",
           "city": "NY"
+        },
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
         }
       }
     },
