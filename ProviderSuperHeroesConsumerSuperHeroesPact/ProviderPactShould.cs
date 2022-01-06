@@ -33,8 +33,7 @@ namespace ProviderSuperHeroesConsumerSuperHeroesPact
         [Fact]
         public void Ensure_honors_pact_contract_with_consumer()
         {
-            PactVerify(ProviderUriBase, ProviderName, ConsumerName,
-                ProviderStateUriBase, FileUriBase);
+            PactVerify(ProviderStateUriBase, ProviderUriBase, ProviderName, ConsumerName, FileUriBase);
         }
 
         private void LaunchProviderStateHttpServer(string pactServiceUri)
@@ -48,8 +47,8 @@ namespace ProviderSuperHeroesConsumerSuperHeroesPact
             _webHost.Start();
         }
 
-        private void PactVerify(string providerUri, string providerName, string consumerName,
-            string uriBaseProviderState, string fileUriBase)
+        private void PactVerify(string providerStateUriBase, string providerUri, 
+            string providerName, string consumerName, string fileUriBase)
         {
             var config = new PactVerifierConfig
             {
@@ -61,7 +60,7 @@ namespace ProviderSuperHeroesConsumerSuperHeroesPact
             };
 
             var pactVerifier = new PactVerifier(config);
-            pactVerifier.ProviderState($"{uriBaseProviderState}/provider-states")
+            pactVerifier.ProviderState($"{providerStateUriBase}/provider-states")
                 .ServiceProvider(providerName, providerUri)
                 .HonoursPactWith(consumerName)
                 .PactUri($"{fileUriBase}\\{consumerName.ToLower()}-{providerName.ToLower()}.json")
