@@ -23,7 +23,6 @@ namespace ProviderSuperHeroesConsumerSuperHeroesPact
 
         private IWebHost _webHost;
 
-
         public ProviderPactShould(ITestOutputHelper output)
         {
             _outputHelper = output;
@@ -65,12 +64,11 @@ namespace ProviderSuperHeroesConsumerSuperHeroesPact
                 .SetBearerAuthentication(token);
 
             var pactVerifier = new PactVerifier(config);
-
             pactVerifier
                 .ProviderState($"{providerStateUriBase}/provider-states")
                 .ServiceProvider(providerName, providerUriBase)
                 .HonoursPactWith(consumerName)
-                .PactBroker(brokerBaseUri, pactUriOptions, true,
+                .PactBroker(brokerBaseUri, pactUriOptions, false,
                     new []{ "master", "uat" }, new [] { "master", "uat" },
                     new List<VersionTagSelector>
                     {
