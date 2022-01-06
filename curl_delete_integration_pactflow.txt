@@ -1,0 +1,1 @@
+curl -s -X DELETE -H "Authorization: Bearer JjO7m8_Dm5DFCgUWsG8GAg" https://42skillz.pactflow.io/integrations/provider/<Provider>/consumer/<Consumer>
