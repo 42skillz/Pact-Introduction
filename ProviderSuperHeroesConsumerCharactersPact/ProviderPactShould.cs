@@ -17,7 +17,7 @@ namespace ProviderSuperHeroesConsumerCharactersPact
         private const string ConsumerName = "ConsumerCharacters";
         private const string ProviderUriBase = "http://localhost:5000";
         private const string ProviderStateUriBase = "http://localhost:5002";
-        private const string FileUri = @"..\..\..\..\pacts\consumercharacters-providersuperheroes.json";
+        private const string FileUri = @"..\..\..\..\pacts";
         private readonly ITestOutputHelper _outputHelper;
         private IWebHost _webHost;
 
@@ -46,7 +46,7 @@ namespace ProviderSuperHeroesConsumerCharactersPact
             _webHost.Start();
         }
 
-        private void PactVerify(string providerUriBase, string providerName, string consumerName, string fileUri,
+        private void PactVerify(string providerUriBase, string providerName, string consumerName, string fileUriBase,
             string uriBaseProviderState)
         {
             var config = new PactVerifierConfig
@@ -64,7 +64,7 @@ namespace ProviderSuperHeroesConsumerCharactersPact
                 .ProviderState($"{uriBaseProviderState}/provider-states")
                 .ServiceProvider(providerName, providerUriBase)
                 .HonoursPactWith(consumerName)
-                .PactUri(fileUri)
+                .PactUri($"{fileUriBase}\\{consumerName.ToLower()}-{providerName.ToLower()}.json")
                 .Verify();
         }
 

@@ -17,7 +17,7 @@ namespace ProviderSuperHeroesConsumerSuperHeroesPact
         private const string ConsumerName = "ConsumerSuperHeroes";
         private const string ProviderUriBase = "http://localhost:5000";
         private const string ProviderStateUriBase = "http://localhost:5002";
-        private const string FileUri = @"..\..\..\..\pacts\consumersuperheroes-providersuperheroes.json";
+        private const string FileUriBase = @"..\..\..\..\pacts";
 
         private readonly ITestOutputHelper _outputHelper;
         private IWebHost _webHost;
@@ -34,7 +34,7 @@ namespace ProviderSuperHeroesConsumerSuperHeroesPact
         public void Ensure_honors_pact_contract_with_consumer()
         {
             PactVerify(ProviderUriBase, ProviderName, ConsumerName,
-                ProviderStateUriBase, FileUri);
+                ProviderStateUriBase, FileUriBase);
         }
 
         private void LaunchProviderStateHttpServer(string pactServiceUri)
@@ -49,7 +49,7 @@ namespace ProviderSuperHeroesConsumerSuperHeroesPact
         }
 
         private void PactVerify(string providerUri, string providerName, string consumerName,
-            string uriBaseProviderState, string fileUri)
+            string uriBaseProviderState, string fileUriBase)
         {
             var config = new PactVerifierConfig
             {
@@ -64,7 +64,7 @@ namespace ProviderSuperHeroesConsumerSuperHeroesPact
             pactVerifier.ProviderState($"{uriBaseProviderState}/provider-states")
                 .ServiceProvider(providerName, providerUri)
                 .HonoursPactWith(consumerName)
-                .PactUri(fileUri)
+                .PactUri($"{fileUriBase}\\{consumerName.ToLower()}-{providerName.ToLower()}.json")
                 .Verify();
         }
 
