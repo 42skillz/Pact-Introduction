@@ -13,12 +13,13 @@ namespace ProviderSuperHeroesConsumerSuperHeroesPact
 {
     public sealed class ProviderPactShould : IDisposable
     {
+        private const string ProviderVersion = "3.0.1";
         private const string ProviderName = "ProviderSuperHeroes";
         private const string ConsumerName = "ConsumerSuperHeroes";
         private const string ProviderUriBase = "http://localhost:5000";
         private const string ProviderStateUriBase = "http://localhost:5002";
         private const string BrokerBaseUri = "https://42skillz.pactflow.io";
-        private const string Token = "JjO7m8_Dm5DFCgUWsG8GAg";
+        private const string BearToken = "JjO7m8_Dm5DFCgUWsG8GAg";
         private readonly ITestOutputHelper _outputHelper;
 
         private IWebHost _webHost;
@@ -32,37 +33,6 @@ namespace ProviderSuperHeroesConsumerSuperHeroesPact
         [Fact]
         public void Ensure_honors_pact_contract_with_consumer()
         {
-            PactVerify(ProviderUriBase, ProviderName, ConsumerName, 
-                BrokerBaseUri, ProviderStateUriBase, Token);
-        }
-
-
-        private void LaunchProviderStateHttpServer(string pactServiceUri)
-        {
-            _webHost = WebHost.CreateDefaultBuilder()
-                .UseUrls(pactServiceUri)
-                .UseStartup<TestStartup>()
-                .Build();
-
-            _webHost.Start();
-        }
-
-        private void PactVerify(string providerUriBase, string providerName, string consumerName, 
-            string brokerBaseUri, string providerStateUriBase, string token)
-        {
-            var config = new PactVerifierConfig
-            {
-                ProviderVersion = "3.0.1",
-                PublishVerificationResults = true,
-                Outputters = new List<IOutput>
-                {
-                    new XUnitOutput(_outputHelper)
-                },
-                //Verbose = true
-            };
-
-            var pactUriOptions = new PactUriOptions()
-                .SetBearerAuthentication(token);
             var versionTags = new VersionTags
             {
                 ConsumerTags = new List<string> { "test", "uat" },
@@ -77,8 +47,43 @@ namespace ProviderSuperHeroesConsumerSuperHeroesPact
             };
 
             const bool enablePending = false;
-            
+
+
+            PactVerify(ProviderUriBase, ProviderName, ConsumerName,
+                BrokerBaseUri, ProviderStateUriBase, BearToken,
+                versionTags, consumerVersionSelectors, enablePending);
+        }
+
+
+        private void LaunchProviderStateHttpServer(string pactServiceUri)
+        {
+            _webHost = WebHost.CreateDefaultBuilder()
+                .UseUrls(pactServiceUri)
+                .UseStartup<TestStartup>()
+                .Build();
+
+            _webHost.Start();
+        }
+
+        private void PactVerify(string providerUriBase, string providerName, string consumerName,
+            string brokerBaseUri, string providerStateUriBase, string bearToken, VersionTags versionTags,
+            IEnumerable<VersionTagSelector> consumerVersionSelectors, bool enablePending)
+        {
+            var config = new PactVerifierConfig
+            {
+                ProviderVersion = ProviderVersion,
+                PublishVerificationResults = true,
+                Outputters = new List<IOutput>
+                {
+                    new XUnitOutput(_outputHelper)
+                }
+                //Verbose = true
+            };
+
+            var pactUriOptions = new PactUriOptions()
+                .SetBearerAuthentication(bearToken);
             var pactVerifier = new PactVerifier(config);
+
             pactVerifier
                 .ProviderState($"{providerStateUriBase}/provider-states")
                 .ServiceProvider(providerName, providerUriBase)

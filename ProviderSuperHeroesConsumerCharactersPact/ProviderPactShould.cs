@@ -13,12 +13,13 @@ namespace ProviderSuperHeroesConsumerCharactersPact
 {
     public sealed class ProviderPactShould : IDisposable
     {
+        private const string ProviderVersion = "2.0.1";
         private const string ProviderName = "ProviderSuperHeroes";
         private const string ConsumerName = "ConsumerCharacters";
         private const string ProviderUriBase = "http://localhost:5000";
         private const string ProviderStateUriBase = "http://localhost:5002";
         private const string BrokerBaseUri = "https://42skillz.pactflow.io";
-        private const string Token = "JjO7m8_Dm5DFCgUWsG8GAg";
+        private const string BearToken = "JjO7m8_Dm5DFCgUWsG8GAg";
         private readonly ITestOutputHelper _outputHelper;
 
         private IWebHost _webHost;
@@ -32,11 +33,25 @@ namespace ProviderSuperHeroesConsumerCharactersPact
         [Fact]
         public void Ensure_honors_pact_contract_with_consumer()
         {
+            var versionTags = new VersionTags
+            {
+                ConsumerTags = new List<string> { "test", "uat" },
+                ProviderTags = new List<string> { "test", "uat" }
+            };
+
+            var consumerVersionSelectors = new List<VersionTagSelector>
+            {
+                new VersionTagSelector("test", latest: true),
+                new VersionTagSelector("uat", latest: true),
+                new VersionTagSelector("production")
+            };
+
+            const bool enablePending = false;
+
             PactVerify(ProviderUriBase, ProviderName, ConsumerName,
-                BrokerBaseUri, ProviderStateUriBase, Token);
+                BrokerBaseUri, ProviderStateUriBase, BearToken,
+                versionTags, consumerVersionSelectors, enablePending);
         }
-
-
 
         private void LaunchProviderStateHttpServer(string pactServiceUri)
         {
@@ -49,36 +64,22 @@ namespace ProviderSuperHeroesConsumerCharactersPact
         }
 
         private void PactVerify(string providerUriBase, string providerName, string consumerName,
-            string brokerBaseUri, string providerStateUriBase, string token)
+            string brokerBaseUri, string providerStateUriBase, string bearToken, VersionTags versionTags,
+            IEnumerable<VersionTagSelector> consumerVersionSelectors, bool enablePending)
         {
             var config = new PactVerifierConfig
             {
-                ProviderVersion = "2.0.1",
+                ProviderVersion = ProviderVersion,
                 PublishVerificationResults = true,
                 Outputters = new List<IOutput>
                 {
                     new XUnitOutput(_outputHelper)
-                },
+                }
                 //Verbose = true
             };
 
             var pactUriOptions = new PactUriOptions()
-                .SetBearerAuthentication(token);
-            
-            var versionTags = new VersionTags
-            {
-                ConsumerTags = new List<string> { "test", "uat" },
-                ProviderTags = new List<string> { "test", "uat" }
-            };
-            
-            var consumerVersionSelectors = new List<VersionTagSelector>
-            {
-                new VersionTagSelector("test", latest: true),
-                new VersionTagSelector("uat", latest: true),
-                new VersionTagSelector("production")
-            };
-
-            const bool enablePending = false;
+                .SetBearerAuthentication(bearToken);
 
             var pactVerifier = new PactVerifier(config);
 
@@ -87,7 +88,7 @@ namespace ProviderSuperHeroesConsumerCharactersPact
                 .ServiceProvider(providerName, providerUriBase)
                 .HonoursPactWith(consumerName)
                 .PactBroker(brokerBaseUri, pactUriOptions, enablePending,
-                    versionTags.ConsumerTags.ToArray(), 
+                    versionTags.ConsumerTags.ToArray(),
                     versionTags.ProviderTags.ToArray(),
                     consumerVersionSelectors)
                 .Verify();

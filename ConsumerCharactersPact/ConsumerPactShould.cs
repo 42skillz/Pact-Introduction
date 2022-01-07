@@ -46,21 +46,19 @@ namespace ConsumerCharactersPact
                         ["Content-Type"] = "application/json; charset=utf-8"
                     },
 
-                    Body = Match.Type(new Character { 
+                    Body = Match.Type(new Character
+                    {
                         Id = 1,
                         Name = "Parker",
                         City = "NY"
-                        })
+                    })
                 });
 
             var consumerCharacters = new ConsumerCharacters.ConsumerCharacters(_mockProviderServiceBaseUri);
 
             var message = await consumerCharacters.GetCharacterById(characterId);
 
-            if (message.IsSuccessStatusCode)
-            {
-                AssertFirstCharacter(await AdaptCharacter(message));
-            }
+            if (message.IsSuccessStatusCode) AssertFirstCharacter(await AdaptCharacter(message));
 
             _mockProviderService.VerifyInteractions();
         }

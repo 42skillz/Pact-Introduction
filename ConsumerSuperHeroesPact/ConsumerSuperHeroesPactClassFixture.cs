@@ -60,14 +60,16 @@ namespace ConsumerSuperHeroesPact
                     // This will save the pact file once finished.
                     PactBuilder.Build();
 
-                    PublishToBroker(Token, PathToSslCaFile, BrokerBaseUri, PactFile, ConsumerVersion, ConsumerVersionTag);
+                    PublishToBroker(Token, PathToSslCaFile, BrokerBaseUri, PactFile, ConsumerVersion,
+                        ConsumerVersionTag);
                 }
 
                 _disposedValue = true;
             }
         }
 
-        private static void PublishToBroker(string token, string pathToSslCaFile, string brokenBaseUri, string pactFile, string consumerVersion, string tag)
+        private static void PublishToBroker(string token, string pathToSslCaFile, string brokenBaseUri, string pactFile,
+            string consumerVersion, string tag)
         {
             var brokerUriOptions =
                 new PactUriOptions(token).SetSslCaFilePath(pathToSslCaFile);
