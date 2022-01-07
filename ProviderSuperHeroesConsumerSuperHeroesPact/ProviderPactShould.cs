@@ -33,12 +33,14 @@ namespace ProviderSuperHeroesConsumerSuperHeroesPact
         [Fact]
         public void Ensure_honors_pact_contract_with_consumer()
         {
+            // Provider verification badges <a href="https://stackoverflow.com/questions/6960426/c-sharp-xml-documentation-website-link">here</a>
             var versionTags = new VersionTags
             {
                 ConsumerTags = new List<string> { "test", "uat" },
                 ProviderTags = new List<string> { "test", "uat" }
             };
 
+            // Consumer Version Selectors <a href="https://docs.pact.io/pact_broker/advanced_topics/consumer_version_selectors">here</a>
             var consumerVersionSelectors = new List<VersionTagSelector>
             {
                 new VersionTagSelector("test", latest: true),
@@ -46,12 +48,15 @@ namespace ProviderSuperHeroesConsumerSuperHeroesPact
                 new VersionTagSelector("production")
             };
 
+            // Pending pacts <a href="https://docs.pact.io/pact_broker/advanced_topics/pending_pacts">here</a>
             const bool enablePending = false;
 
+            // Work In Progress pacts <a href="https://docs.pact.io/pact_broker/advanced_topics/wip_pacts">here</a>
+            const string includeWipPactsSince = "2022-01-01";
 
             PactVerify(ProviderUriBase, ProviderName, ConsumerName,
                 BrokerBaseUri, ProviderStateUriBase, BearToken,
-                versionTags, consumerVersionSelectors, enablePending);
+                versionTags, consumerVersionSelectors, enablePending, includeWipPactsSince);
         }
 
 
@@ -67,7 +72,7 @@ namespace ProviderSuperHeroesConsumerSuperHeroesPact
 
         private void PactVerify(string providerUriBase, string providerName, string consumerName,
             string brokerBaseUri, string providerStateUriBase, string bearToken, VersionTags versionTags,
-            IEnumerable<VersionTagSelector> consumerVersionSelectors, bool enablePending)
+            IEnumerable<VersionTagSelector> consumerVersionSelectors, bool enablePending, string includeWipPactsSince)
         {
             var config = new PactVerifierConfig
             {
@@ -90,7 +95,7 @@ namespace ProviderSuperHeroesConsumerSuperHeroesPact
                 .HonoursPactWith(consumerName)
                 .PactBroker(brokerBaseUri, pactUriOptions, enablePending,
                     versionTags.ConsumerTags, versionTags.ProviderTags,
-                    consumerVersionSelectors)
+                    consumerVersionSelectors, includeWipPactsSince: includeWipPactsSince)
                 .Verify();
         }
 
