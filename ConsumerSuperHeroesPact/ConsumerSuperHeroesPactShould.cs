@@ -4,12 +4,14 @@ using System.Threading.Tasks;
 using ConsumerSuperHeroes;
 using Newtonsoft.Json;
 using NFluent;
+using PactNet.Matchers;
 using PactNet.Mocks.MockHttpService;
 using PactNet.Mocks.MockHttpService.Models;
 using Xunit;
 
 namespace ConsumerSuperHeroesPact
 {
+    // Pact Terminology https://docs.pact.io/getting_started/terminology
     public class ConsumerPactShould : IClassFixture<ConsumerSuperHeroesPactClassFixture>
     {
         private readonly IMockProviderService _mockProviderService;
@@ -19,7 +21,7 @@ namespace ConsumerSuperHeroesPact
         {
             _mockProviderService = fixture.MockProviderService;
             _mockProviderService.ClearInteractions();
-            _mockProviderServiceBaseUri = fixture.MockProviderServiceBaseUri;
+            _mockProviderServiceBaseUri = ConsumerSuperHeroesPactClassFixture.MockProviderServiceBaseUri;
         }
 
         [Fact]
@@ -45,8 +47,8 @@ namespace ConsumerSuperHeroesPact
                         ["Content-Type"] = "application/json; charset=utf-8"
                     },
 
-                    Body = new FanOfSuperHero(1, "Peter", "Parker",
-                        "Peter Parker is the secret identity of the character Spider-Man.")
+                    Body = Match.Type(new FanOfSuperHero(1, "Peter", "Parker",
+                        "Peter Parker is the secret identity of the character Spider-Man."))
                 });
 
             var message = await new ConsumerSuperHeroes.ConsumerSuperHeroes(_mockProviderServiceBaseUri)

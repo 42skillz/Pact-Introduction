@@ -11,6 +11,7 @@ using Xunit;
 
 namespace ConsumerCharactersPact
 {
+    // Pact Terminology https://docs.pact.io/getting_started/terminology
     public class ConsumerPactShould : IClassFixture<ConsumerPactClassFixture>
     {
         private readonly IMockProviderService _mockProviderService;
@@ -20,7 +21,7 @@ namespace ConsumerCharactersPact
         {
             _mockProviderService = fixture.MockProviderService;
             _mockProviderService.ClearInteractions();
-            _mockProviderServiceBaseUri = fixture.MockProviderServiceBaseUri;
+            _mockProviderServiceBaseUri = ConsumerPactClassFixture.MockProviderServiceBaseUri;
         }
 
         [Fact]

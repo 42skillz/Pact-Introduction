@@ -11,9 +11,10 @@ using Xunit.Abstractions;
 
 namespace ProviderSuperHeroesConsumerCharactersPact
 {
+    // Pact Terminology https://docs.pact.io/getting_started/terminology
     public sealed class ProviderPactShould : IDisposable
     {
-        private const string ProviderVersion = "2.0.1";
+        private const string ProviderVersion = "2.0.5";
         private const string ProviderName = "ProviderSuperHeroes";
         private const string ConsumerName = "ConsumerCharacters";
         private const string ProviderUriBase = "http://localhost:5000";
@@ -28,35 +29,38 @@ namespace ProviderSuperHeroesConsumerCharactersPact
         public ProviderPactShould(ITestOutputHelper output)
         {
             _outputHelper = output;
-            // Provider states <a href="https://docs.pact.io/getting_started/provider_states/">here</a>
+            // Provider states https://docs.pact.io/getting_started/provider_states/
             LaunchProviderStateHttpServer(ProviderStateUriBase);
         }
 
         [Fact]
         public void Ensure_honors_pact_contract_with_consumer()
         {
-            // Provider verification badges <a href="https://stackoverflow.com/questions/6960426/c-sharp-xml-documentation-website-link">here</a>
+            // Provider verification badges https://docs.pact.io/pact_broker/advanced_topics/provider_verification_badges/
+            // Versioning in the Pact Broker https://docs.pact.io/getting_started/versioning_in_the_pact_broker/
+            // Tags https://docs.pact.io/pact_broker/tags
+
             var versionTags = new VersionTags
             {
-                ConsumerTags = new List<string> { "test", "uat" },
-                ProviderTags = new List<string> { "test", "uat" }
+                ConsumerTags = new List<string> { "master", "uat" },
+                ProviderTags = new List<string> { "master", "uat" }
             };
 
-            // Consumer Version Selectors <a href="https://docs.pact.io/pact_broker/advanced_topics/consumer_version_selectors">here</a>
+            // Consumer Version Selectors https://docs.pact.io/pact_broker/advanced_topics/consumer_version_selectors
             var consumerVersionSelectors = new List<VersionTagSelector>
             {
-                new VersionTagSelector("test", latest: true),
+                new VersionTagSelector("master", latest: true),
                 new VersionTagSelector("uat", latest: true),
                 new VersionTagSelector("production")
             };
 
-            // Pending pacts <a href="https://docs.pact.io/pact_broker/advanced_topics/pending_pacts">here</a>
-            const bool enablePending = false;
+            // Pending pacts https://docs.pact.io/pact_broker/advanced_topics/pending_pacts
+            const bool enablePending = true;
 
-            // Work In Progress pacts <a href="https://docs.pact.io/pact_broker/advanced_topics/wip_pacts">here</a>
+            // Work In Progress pacts https://docs.pact.io/pact_broker/advanced_topics/wip_pacts
             const string includeWipPactsSince = "2022-01-01";
 
-            // Work In Progress pacts <a href="https://docs.pact.io/pact_broker/advanced_topics/wip_pacts">here</a>
+            // Work In Progress pacts https://docs.pact.io/pact_broker/advanced_topics/wip_pacts
             PactVerify(ProviderUriBase, ProviderName, ConsumerName,
                 BrokerBaseUri, ProviderStateUriBase, BearToken,
                 versionTags, consumerVersionSelectors, enablePending, includeWipPactsSince, ProviderVersionBranch);
@@ -101,7 +105,7 @@ namespace ProviderSuperHeroesConsumerCharactersPact
                     versionTags.ConsumerTags.ToArray(),
                     versionTags.ProviderTags.ToArray(),
                     consumerVersionSelectors, includeWipPactsSince
-                    //  provider-version-branch option <a href="https://github.com/pact-foundation/pact-net/pull/345/files/742518b0455f6c3ae22d1a8a4cae7248678c5220">Here</a>
+                    //  provider-version-branch option https://github.com/pact-foundation/pact-net/pull/345/files/742518b0455f6c3ae22d1a8a4cae7248678c5220
                     //, ProviderVersionBranch
                     )
                 .Verify();

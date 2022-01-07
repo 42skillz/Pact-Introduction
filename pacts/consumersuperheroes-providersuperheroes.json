@@ -23,6 +23,11 @@
           "firstName": "Peter",
           "name": "Parker",
           "summary": "Peter Parker is the secret identity of the character Spider-Man."
+        },
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
         }
       }
     }
