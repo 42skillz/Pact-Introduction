@@ -36,6 +36,8 @@ namespace ProviderSuperHeroesConsumerCharactersPact
                 BrokerBaseUri, ProviderStateUriBase, Token);
         }
 
+
+
         private void LaunchProviderStateHttpServer(string pactServiceUri)
         {
             _webHost = WebHost.CreateDefaultBuilder()
@@ -62,21 +64,32 @@ namespace ProviderSuperHeroesConsumerCharactersPact
 
             var pactUriOptions = new PactUriOptions()
                 .SetBearerAuthentication(token);
+            
+            var versionTags = new VersionTags
+            {
+                ConsumerTags = new List<string> { "test", "uat" },
+                ProviderTags = new List<string> { "test", "uat" }
+            };
+            
+            var consumerVersionSelectors = new List<VersionTagSelector>
+            {
+                new VersionTagSelector("test", latest: true),
+                new VersionTagSelector("uat", latest: true),
+                new VersionTagSelector("production")
+            };
+
+            const bool enablePending = false;
 
             var pactVerifier = new PactVerifier(config);
+
             pactVerifier
                 .ProviderState($"{providerStateUriBase}/provider-states")
                 .ServiceProvider(providerName, providerUriBase)
                 .HonoursPactWith(consumerName)
-                .PactBroker(brokerBaseUri, pactUriOptions, false,
-                    new[] { "master", "uat" }, new[] { "master", "uat" },
-                    new List<VersionTagSelector>
-                    {
-                        new VersionTagSelector("master", latest: true),
-                        new VersionTagSelector("uat", latest: true),
-                        new VersionTagSelector("test", latest: true),
-                        new VersionTagSelector("production")
-                    })
+                .PactBroker(brokerBaseUri, pactUriOptions, enablePending,
+                    versionTags.ConsumerTags.ToArray(), 
+                    versionTags.ProviderTags.ToArray(),
+                    consumerVersionSelectors)
                 .Verify();
         }
 
