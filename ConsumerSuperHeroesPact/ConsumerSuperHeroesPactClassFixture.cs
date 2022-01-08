@@ -19,7 +19,7 @@ namespace ConsumerSuperHeroesPact
         private const string Token = "JjO7m8_Dm5DFCgUWsG8GAg";
         private const string SslCaFile = @"ca.crt";
         private const string BrokerBaseUri = "https://42skillz.pactflow.io";
-        private const string ConsumerVersion = "1.0.5";
+        private const string ConsumerVersion = "3.0.5";
         private const string ConsumerVersionBranch = "master";
         private static readonly string[] Environments = { "uat" };
 
@@ -63,7 +63,7 @@ namespace ConsumerSuperHeroesPact
                 {
                     // This will save the pact file once finished.
                     PactBuilder.Build();
-
+                    // Publishing and retrieving pacts https://docs.pact.io/pact_broker/publishing_and_retrieving_pacts
                     PublishToBroker(ConsumerName, ProviderName, 
                         Token, SslCaFile, BrokerBaseUri, ConsumerVersion, Tags);
                 }

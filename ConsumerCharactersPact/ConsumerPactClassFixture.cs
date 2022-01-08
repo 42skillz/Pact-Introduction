@@ -62,7 +62,7 @@ namespace ConsumerCharactersPact
                 {
                     // This will save the pact file once finished.
                     PactBuilder.Build();
-
+                    // Publishing and retrieving pacts https://docs.pact.io/pact_broker/publishing_and_retrieving_pacts
                     PublishToBroker(ConsumerName, ProviderName, 
                         Token, SslCaFile, BrokerBaseUri, ConsumerVersion, Tags);
                 }

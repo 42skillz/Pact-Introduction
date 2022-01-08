@@ -35,7 +35,7 @@ namespace ProviderSuperHeroesConsumerSuperHeroesPact
 
         [Fact]
         public void Ensure_honors_pact_contract_with_consumer()
-        {            
+        {
             // Provider verification badges https://docs.pact.io/pact_broker/advanced_topics/provider_verification_badges/
             // Versioning in the Pact Broker https://docs.pact.io/getting_started/versioning_in_the_pact_broker/
             // Tags https://docs.pact.io/pact_broker/tags
