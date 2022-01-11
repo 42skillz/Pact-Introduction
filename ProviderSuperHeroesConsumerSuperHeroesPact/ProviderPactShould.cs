@@ -54,7 +54,7 @@ namespace ProviderSuperHeroesConsumerSuperHeroesPact
                 new VersionTagSelector("production")
             };
 
-            // Pending pacts <a href="https://docs.pact.io/pact_broker/advanced_topics/pending_pacts
+            // Pending pacts https://docs.pact.io/pact_broker/advanced_topics/pending_pacts
             const bool enablePending = true;
 
             // Work In Progress pacts https://docs.pact.io/pact_broker/advanced_topics/wip_pacts
