@@ -14,9 +14,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsumerSuperHeroes", "Cons
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsumerSuperHeroesPact", "ConsumerSuperHeroesPact\ConsumerSuperHeroesPact.csproj", "{BED18019-034A-4A45-9AF7-02F1B7C48E0A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Characters-Test", "Characters-Test", "{6009A49A-4B56-40E3-B6E6-E3B16D66D1AF}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Characters", "Characters", "{6009A49A-4B56-40E3-B6E6-E3B16D66D1AF}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SuperHeroes-Test", "SuperHeroes-Test", "{1DBAEE82-61E9-4201-9194-05F02A897390}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SuperHeroes", "SuperHeroes", "{1DBAEE82-61E9-4201-9194-05F02A897390}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProviderSuperHeroesConsumerSuperHeroesPact", "ProviderSuperHeroesConsumerSuperHeroesPact\ProviderSuperHeroesConsumerSuperHeroesPact.csproj", "{968C239F-E8A3-4AC0-ACC4-DC6D4BCE6793}"
 EndProject
