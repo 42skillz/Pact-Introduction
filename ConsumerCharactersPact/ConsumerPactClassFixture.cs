@@ -19,7 +19,8 @@ namespace ConsumerCharactersPact
         private const string Token = "JjO7m8_Dm5DFCgUWsG8GAg";
         private const string SslCaFile = @"ca.crt";
         private const string BrokerBaseUri = "https://42skillz.pactflow.io";
-        private const string ConsumerVersion = "2.0.5";
+        // Versioning in the Pact Broker see: https://docs.pact.io/getting_started/versioning_in_the_pact_broker/
+        private const string ConsumerVersion = "3.0.5";
         private const string ConsumerVersionBranch = "master";
         private static readonly string[] Environments = { "uat" };
 

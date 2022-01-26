@@ -47,11 +47,11 @@ namespace ConsumerCharactersPact
                         ["Content-Type"] = "application/json; charset=utf-8"
                     },
 
-                    Body = Match.Type(new Character
+                    Body = Match.Type( new
                     {
                         Id = 1,
-                        Name = "Parker",
-                        City = "NY"
+                        Name = Match.Type("string"),
+                        City = Match.Type("string")
                     })
                 });
 
@@ -84,11 +84,12 @@ namespace ConsumerCharactersPact
                     },
 
                     Body = Match.MinType(new
-                        {
-                            Id = 1,
-                            Name = Match.Type("string"),
-                            City = Match.Type("string")
-                        }, 1
+                    {
+                        Id = 1,
+                        Name = Match.Type("string"),
+                        City = Match.Type("string")
+                    }, 
+                        1
                     )
                 });
 
@@ -103,9 +104,9 @@ namespace ConsumerCharactersPact
 
         private static void AssertFirstCharacter(Character character)
         {
-            Check.That(character.Id).IsEqualTo(character.Id);
-            Check.That(character.Name).IsEqualTo("Parker");
-            Check.That(character.City).IsEqualTo("NY");
+            Check.That(character.Id).IsInstanceOfType(typeof(int));
+            Check.That(character.Name).IsInstanceOfType(typeof(string));
+            Check.That(character.City).IsInstanceOfType(typeof(string));
         }
 
         private static async Task<Character> AdaptCharacter(HttpResponseMessage httpResponseMessage)

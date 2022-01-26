@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using ConsumerSuperHeroes;
 using Newtonsoft.Json;
 using NFluent;
+using PactNet;
 using PactNet.Matchers;
 using PactNet.Mocks.MockHttpService;
 using PactNet.Mocks.MockHttpService.Models;
@@ -47,8 +48,12 @@ namespace ConsumerSuperHeroesPact
                         ["Content-Type"] = "application/json; charset=utf-8"
                     },
 
-                    Body = Match.Type(new FanOfSuperHero(1, "Peter", "Parker",
-                        "Peter Parker is the secret identity of the character Spider-Man."))
+                    Body = Match.Type(new {
+                        Id = 1,
+                        FirstName = "Peter",
+                        Name = "Parker",
+                        Summary = "Peter Parker is the secret identity of the character Spider-Man."
+                    })
                 });
 
             var message = await new ConsumerSuperHeroes.ConsumerSuperHeroes(_mockProviderServiceBaseUri)
@@ -63,11 +68,10 @@ namespace ConsumerSuperHeroesPact
 
         private static void AssertFirstSuperHero(FanOfSuperHero fanOfSuperHero)
         {
-            Check.That(fanOfSuperHero.Id).IsEqualTo(fanOfSuperHero.Id);
-            Check.That(fanOfSuperHero.FirstName).IsEqualTo("Peter");
-            Check.That(fanOfSuperHero.Name).IsEqualTo("Parker");
-            Check.That(fanOfSuperHero.Summary)
-                .IsEqualTo("Peter Parker is the secret identity of the character Spider-Man.");
+            Check.That(fanOfSuperHero.Id).IsInstanceOfType(typeof(int));
+            Check.That(fanOfSuperHero.FirstName).IsInstanceOfType(typeof(string));
+            Check.That(fanOfSuperHero.Name).IsInstanceOfType(typeof(string));
+            Check.That(fanOfSuperHero.Summary).IsInstanceOfType(typeof(string)); ;
         }
 
         private static async Task<FanOfSuperHero> AdaptSuperHero(HttpResponseMessage httpResponseMessage)

@@ -20,11 +20,17 @@
         },
         "body": {
           "id": 1,
-          "name": "Parker",
-          "city": "NY"
+          "name": "string",
+          "city": "string"
         },
         "matchingRules": {
           "$.body": {
+            "match": "type"
+          },
+          "$.body.name": {
+            "match": "type"
+          },
+          "$.body.city": {
             "match": "type"
           }
         }

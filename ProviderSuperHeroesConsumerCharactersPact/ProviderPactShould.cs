@@ -60,7 +60,6 @@ namespace ProviderSuperHeroesConsumerCharactersPact
             // Work In Progress pacts https://docs.pact.io/pact_broker/advanced_topics/wip_pacts
             const string includeWipPactsSince = "2022-01-01";
 
-            // Work In Progress pacts https://docs.pact.io/pact_broker/advanced_topics/wip_pacts
             PactVerify(ProviderUriBase, ProviderName, ConsumerName,
                 BrokerBaseUri, ProviderStateUriBase, BearToken,
                 versionTags, consumerVersionSelectors, enablePending, includeWipPactsSince, ProviderVersionBranch);
