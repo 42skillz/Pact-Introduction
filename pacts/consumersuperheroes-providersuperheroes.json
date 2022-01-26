@@ -30,6 +30,71 @@
           }
         }
       }
+    },
+    {
+      "description": "One character",
+      "providerState": "There are characters",
+      "request": {
+        "method": "get",
+        "path": "/api/superheroes/1"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "body": {
+          "id": 1,
+          "name": "string",
+          "city": "string"
+        },
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          },
+          "$.body.name": {
+            "match": "type"
+          },
+          "$.body.city": {
+            "match": "type"
+          }
+        }
+      }
+    },
+    {
+      "description": "All characters",
+      "providerState": "There are characters",
+      "request": {
+        "method": "get",
+        "path": "/api/superheroes"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "body": [
+          {
+            "id": 1,
+            "name": "string",
+            "city": "string"
+          }
+        ],
+        "matchingRules": {
+          "$.body": {
+            "min": 1
+          },
+          "$.body[*].*": {
+            "match": "type"
+          },
+          "$.body[*].name": {
+            "match": "type"
+          },
+          "$.body[*].city": {
+            "match": "type"
+          }
+        }
+      }
     }
   ],
   "metadata": {
